@@ -12,6 +12,13 @@
 #define NGX_UTF16_BUFLEN  256
 #define NGX_UTF8_BUFLEN   512
 
+/*
+ * The conversions return a buffer from malloc when the one given is too small,
+ * and ngx_win32_check_filename allocates its lower case name with malloc, so
+ * they are freed with free: with NGX_HAVE_EXTERNAL_MALLOC, ngx_free frees what
+ * ngx_alloc allocates, which isn't malloc
+ */
+
 static ngx_int_t ngx_win32_check_filename(u_short *u, size_t len,
     ngx_uint_t dirname);
 static u_short *ngx_utf8_to_utf16(u_short *utf16, u_char *utf8, size_t *len,
@@ -55,7 +62,7 @@ failed:
 
     if (u != utf16) {
         err = ngx_errno;
-        ngx_free(u);
+        free(u);
         ngx_set_errno(err);
     }
 
@@ -90,7 +97,7 @@ ngx_open_tempfile(u_char *name, ngx_uint_t persistent, ngx_uint_t access)
 
     if (u != utf16) {
         err = ngx_errno;
-        ngx_free(u);
+        free(u);
         ngx_set_errno(err);
     }
 
@@ -270,7 +277,7 @@ failed:
 
     if (u != utf16) {
         err = ngx_errno;
-        ngx_free(u);
+        free(u);
         ngx_set_errno(err);
     }
 
@@ -319,13 +326,13 @@ failed:
 
     if (fu != utf16f) {
         err = ngx_errno;
-        ngx_free(fu);
+        free(fu);
         ngx_set_errno(err);
     }
 
     if (tu && tu != utf16t) {
         err = ngx_errno;
-        ngx_free(tu);
+        free(tu);
         ngx_set_errno(err);
     }
 
@@ -433,7 +440,7 @@ failed:
 
     if (u != utf16) {
         err = ngx_errno;
-        ngx_free(u);
+        free(u);
         ngx_set_errno(err);
     }
 
@@ -588,7 +595,7 @@ ngx_getcwd(u_char *buf, size_t size)
     }
 
     if (p != buf) {
-        ngx_free(p);
+        free(p);
         ngx_set_errno(ERROR_INSUFFICIENT_BUFFER);
         return 0;
     }
@@ -629,7 +636,7 @@ ngx_open_dir(ngx_str_t *name, ngx_dir_t *dir)
     }
 
     if (u != utf16) {
-        ngx_free(u);
+        free(u);
     }
 
     dir->valid_info = 1;
@@ -643,7 +650,7 @@ failed:
 
     if (u != utf16) {
         err = ngx_errno;
-        ngx_free(u);
+        free(u);
         ngx_set_errno(err);
     }
 
@@ -683,7 +690,7 @@ convert:
     if (name != dir->name) {
 
         if (dir->name) {
-            ngx_free(dir->name);
+            free(dir->name);
         }
 
         dir->name = name;
@@ -700,7 +707,7 @@ ngx_int_t
 ngx_close_dir(ngx_dir_t *dir)
 {
     if (dir->name) {
-        ngx_free(dir->name);
+        free(dir->name);
     }
 
     if (FindClose(dir->dir) == 0) {
@@ -739,7 +746,7 @@ failed:
 
     if (u != utf16) {
         err = ngx_errno;
-        ngx_free(u);
+        free(u);
         ngx_set_errno(err);
     }
 
@@ -775,7 +782,7 @@ failed:
 
     if (u != utf16) {
         err = ngx_errno;
-        ngx_free(u);
+        free(u);
         ngx_set_errno(err);
     }
 
@@ -806,7 +813,7 @@ ngx_open_glob(ngx_glob_t *gl)
         err = ngx_errno;
 
         if (u != utf16) {
-            ngx_free(u);
+            free(u);
         }
 
         if ((err == ERROR_FILE_NOT_FOUND || err == ERROR_PATH_NOT_FOUND)
@@ -828,7 +835,7 @@ ngx_open_glob(ngx_glob_t *gl)
     }
 
     if (u != utf16) {
-        ngx_free(u);
+        free(u);
     }
 
     gl->ready = 1;
@@ -892,7 +899,7 @@ convert:
     ngx_cpystrn(gl->name.data + gl->last, p, len);
 
     if (p != utf8) {
-        ngx_free(p);
+        free(p);
     }
 
     *name = gl->name;
@@ -903,7 +910,7 @@ failed:
 
     if (p != utf8) {
         err = ngx_errno;
-        ngx_free(p);
+        free(p);
         ngx_set_errno(err);
     }
 
@@ -982,14 +989,14 @@ ngx_fs_bsize(u_char *name)
     if (GetDiskFreeSpaceW(u, &sc, &bs, &nfree, &ncl) == 0) {
 
         if (u != utf16) {
-            ngx_free(u);
+            free(u);
         }
 
         return 512;
     }
 
     if (u != utf16) {
-        ngx_free(u);
+        free(u);
     }
 
     return sc * bs;
@@ -1014,14 +1021,14 @@ ngx_fs_available(u_char *name)
     if (GetDiskFreeSpaceExW(u, &navail, NULL, NULL) == 0) {
 
         if (u != utf16) {
-            ngx_free(u);
+            free(u);
         }
 
         return NGX_MAX_OFF_T_VALUE;
     }
 
     if (u != utf16) {
-        ngx_free(u);
+        free(u);
     }
 
     return (off_t) navail.QuadPart;
@@ -1174,7 +1181,7 @@ ngx_win32_check_filename(u_short *u, size_t len, ngx_uint_t dirname)
         *slash = ch;
     }
 
-    ngx_free(lu);
+    free(lu);
 
     return NGX_OK;
 
@@ -1190,7 +1197,7 @@ failed:
 
     if (lu) {
         err = ngx_errno;
-        ngx_free(lu);
+        free(lu);
         ngx_set_errno(err);
     }
 
@@ -1276,7 +1283,7 @@ ngx_utf8_to_utf16(u_short *utf16, u_char *utf8, size_t *len, size_t reserved)
         n = ngx_utf8_decode(&p, 4);
 
         if (n > 0x10ffff) {
-            ngx_free(utf16);
+            free(utf16);
             ngx_set_errno(NGX_EILSEQ);
             return NULL;
         }
@@ -1388,7 +1395,7 @@ ngx_utf16_to_utf8(u_char *utf8, u_short *utf16, size_t *len, size_t *allocated)
         n = ngx_utf16_decode(&u, 2);
 
         if (n > 0x10ffff) {
-            ngx_free(utf8);
+            free(utf8);
             ngx_set_errno(NGX_EILSEQ);
             return NULL;
         }
