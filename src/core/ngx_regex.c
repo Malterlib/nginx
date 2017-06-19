@@ -19,11 +19,11 @@ static ngx_inline void ngx_regex_malloc_init(ngx_pool_t *pool);
 static ngx_inline void ngx_regex_malloc_done(void);
 
 #if (NGX_PCRE2)
-static void * ngx_libc_cdecl ngx_regex_malloc(size_t size, void *data);
-static void ngx_libc_cdecl ngx_regex_free(void *p, void *data);
+static void * ngx_regex_malloc(size_t size, void *data);
+static void ngx_regex_free(void *p, void *data);
 #else
-static void * ngx_libc_cdecl ngx_regex_malloc(size_t size);
-static void ngx_libc_cdecl ngx_regex_free(void *p);
+static void * ngx_regex_malloc(size_t size);
+static void ngx_regex_free(void *p);
 #endif
 static void ngx_regex_cleanup(void *data);
 
@@ -497,8 +497,7 @@ ngx_regex_exec_array(ngx_array_t *a, ngx_str_t *s, ngx_log_t *log)
 
 #if (NGX_PCRE2)
 
-static void * ngx_libc_cdecl
-ngx_regex_malloc(size_t size, void *data)
+static void * ngx_regex_malloc(size_t size, void *data)
 {
     if (ngx_regex_pool) {
         return ngx_palloc(ngx_regex_pool, size);
@@ -512,8 +511,7 @@ ngx_regex_malloc(size_t size, void *data)
 }
 
 
-static void ngx_libc_cdecl
-ngx_regex_free(void *p, void *data)
+static void ngx_regex_free(void *p, void *data)
 {
     if (ngx_regex_direct_alloc) {
         ngx_free(p);
@@ -524,8 +522,7 @@ ngx_regex_free(void *p, void *data)
 
 #else
 
-static void * ngx_libc_cdecl
-ngx_regex_malloc(size_t size)
+static void * ngx_regex_malloc(size_t size)
 {
     if (ngx_regex_pool) {
         return ngx_palloc(ngx_regex_pool, size);
@@ -535,7 +532,7 @@ ngx_regex_malloc(size_t size)
 }
 
 
-static void ngx_libc_cdecl
+static void 
 ngx_regex_free(void *p)
 {
     return;
