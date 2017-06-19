@@ -393,7 +393,7 @@ ngx_log_init(u_char *prefix)
     }
 
     if (p) {
-        ngx_free(p);
+        free(p);
     }
 
     return &ngx_log;
