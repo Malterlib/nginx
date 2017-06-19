@@ -9,17 +9,23 @@
 #define _NGX_WIN32_CONFIG_H_INCLUDED_
 
 
+#ifndef _WIN32_WINNT
 #undef  WIN32
 #define WIN32         0x0400
 #define _WIN32_WINNT  0x0501
+#endif
 
 
 #define STRICT
 #define WIN32_LEAN_AND_MEAN
 
 /* enable getenv() and gmtime() in msvc8 */
+#ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
+#endif
+#ifndef _CRT_SECURE_NO_DEPRECATE
 #define _CRT_SECURE_NO_DEPRECATE
+#endif 
 
 /* enable gethostbyname() in msvc2015 */
 #if !(NGX_HAVE_INET6)
@@ -72,7 +78,6 @@ typedef long  time_t;
 
 #include <time.h>      /* localtime(), strftime() */
 
-
 #ifdef _MSC_VER
 
 /* the end of the precompiled headers */
@@ -105,6 +110,12 @@ typedef long  time_t;
 
 /* array is too small to include a terminating null character */
 #pragma warning(disable:4295)
+
+/* conversion from 'x' to 'int', possible loss of data */
+#pragma warning(disable:4244)
+
+/* conversion from 'size_t' to 'x', possible loss of data */
+#pragma warning(disable:4267)
 
 #endif
 
@@ -173,7 +184,8 @@ typedef u_int               uintptr_t;
 #ifndef __MINGW64_VERSION_MAJOR
 
 /* Windows defines off_t as long, which is 32-bit */
-typedef __int64             off_t;
+//typedef __int64             off_t;
+#define off_t __int64
 #define _OFF_T_DEFINED
 
 #endif
@@ -197,19 +209,17 @@ typedef unsigned int        ino_t;
 #endif
 
 
-#ifndef __GNUC__
-#ifdef _WIN64
-typedef __int64             ssize_t;
-#else
-typedef int                 ssize_t;
-#endif
-#endif
+#define NGX_OFF_T_LEN           (sizeof("-9223372036854775807") - 1)
+#define NGX_MAX_OFF_T_VALUE     9223372036854775807
+#define NGX_SIG_ATOMIC_T_SIZE   4
+
+#ifndef NGX_PTR_SIZE
+
 
 
 typedef uint32_t            in_addr_t;
 typedef u_short             in_port_t;
 typedef int                 sig_atomic_t;
-
 
 #ifdef _WIN64
 
@@ -220,6 +230,10 @@ typedef int                 sig_atomic_t;
 #define NGX_TIME_T_SIZE         8
 #define NGX_MAX_TIME_T_VALUE    9223372036854775807
 
+#ifndef __GNUC__
+typedef __int64                 ssize_t;
+#endif
+
 #else
 
 #define NGX_PTR_SIZE            4
@@ -229,16 +243,33 @@ typedef int                 sig_atomic_t;
 #define NGX_TIME_T_SIZE         4
 #define NGX_MAX_TIME_T_VALUE    2147483647
 
+#ifndef __GNUC__
+typedef int                 ssize_t;
+#endif
+
 #endif
 
 
-#define NGX_OFF_T_LEN           (sizeof("-9223372036854775807") - 1)
-#define NGX_MAX_OFF_T_VALUE     9223372036854775807
-#define NGX_SIG_ATOMIC_T_SIZE   4
 
 
 #define NGX_HAVE_LITTLE_ENDIAN  1
 #define NGX_HAVE_NONALIGNED     1
+
+#else
+
+typedef uint32_t            in_addr_t;
+typedef u_short             in_port_t;
+typedef int                 sig_atomic_t;
+
+#if NGX_PTR_SIZE == 4
+    typedef int32_t ssize_t;
+#elif NGX_PTR_SIZE == 8
+    typedef int64_t ssize_t;
+#else
+    #error "Unknown pointer size"
+#endif
+
+#endif
 
 
 #define NGX_WIN_NT        200000
