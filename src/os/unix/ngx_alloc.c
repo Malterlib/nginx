@@ -8,11 +8,17 @@
 #include <ngx_config.h>
 #include <ngx_core.h>
 
-
 ngx_uint_t  ngx_pagesize;
 ngx_uint_t  ngx_pagesize_shift;
 ngx_uint_t  ngx_cacheline_size;
 
+#if !defined(NGX_HAVE_EXTERNAL_MALLOC) || (!NGX_HAVE_EXTERNAL_MALLOC)
+
+void 
+ngx_free(void* mem)
+{
+	free(mem);
+}
 
 void *
 ngx_alloc(size_t size, ngx_log_t *log)
@@ -86,5 +92,7 @@ ngx_memalign(size_t alignment, size_t size, ngx_log_t *log)
 
     return p;
 }
+
+#endif
 
 #endif
