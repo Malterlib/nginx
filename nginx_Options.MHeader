@@ -1,0 +1,123 @@
+
+Property
+{
+	// Options
+	NGX_DEBUG define bool = false
+	NGX_DEBUG true
+	{
+		&
+		{
+			NGX_DEBUG undefined
+			DebugCode true
+		}
+	}
+
+	EVENT_FOUND define bool = false
+	EVENT_SELECT define bool = false
+	EVENT_POLL define bool = false
+	EVENT_IOCP define bool = false
+	USE_THREADS define bool = true
+	NGX_FILE_AIO define bool = false
+	NGX_TEST_BUILD_DEVPOLL define bool = false
+	NGX_TEST_BUILD_EVENTPORT define bool = false
+	NGX_TEST_BUILD_EPOLL define bool = false
+	NGX_TEST_BUILD_SOLARIS_SENDFILEV define bool = false
+
+	HTTP define bool = true
+
+	HTTP_CACHE define bool = true
+	HTTP_CHARSET define bool = true
+	HTTP_GZIP define bool = true
+	HTTP_SSL define bool = true
+	HTTP_V2 define bool = true
+	HTTP_SLICE define bool = false
+	HTTP_SSI define bool = true
+	HTTP_REALIP define bool = false
+	HTTP_XSLT define bool = false
+	HTTP_IMAGE_FILTER define bool = false
+	HTTP_SUB define bool = false
+	HTTP_ADDITION define bool = false
+	HTTP_DAV define bool = false
+	HTTP_ACCESS define bool = true
+	HTTP_AUTH_BASIC define bool = false
+	HTTP_AUTH_REQUEST define bool = false
+	HTTP_MIRROR define bool = true
+	HTTP_USERID define bool = true
+	HTTP_AUTOINDEX define bool = true
+	HTTP_RANDOM_INDEX define bool = false
+	HTTP_STATUS define bool = false
+	HTTP_GEO define bool = true
+	HTTP_GEOIP define bool = false
+	HTTP_MAP define bool = true
+	HTTP_SPLIT_CLIENTS define bool = true
+	HTTP_REFERER define bool = true
+	HTTP_REWRITE define bool = true
+	HTTP_PROXY define bool = true
+	HTTP_FASTCGI define bool = true
+	HTTP_UWSGI define bool = true
+	HTTP_SCGI define bool = true
+	HTTP_GRPC define bool = true
+	HTTP_PERL define bool = false
+	HTTP_MEMCACHED define bool = true
+	HTTP_LIMIT_CONN define bool = true
+	HTTP_LIMIT_REQ define bool = true
+	HTTP_EMPTY_GIF define bool = true
+	HTTP_BROWSER define bool = true
+	HTTP_SECURE_LINK define bool = false
+	HTTP_DEGRADATION define bool = false
+	HTTP_FLV define bool = false
+	HTTP_MP4 define bool = false
+	HTTP_GUNZIP define bool = false
+	HTTP_GZIP_STATIC define bool = true
+	HTTP_UPSTREAM_HASH define bool = true
+	HTTP_UPSTREAM_IP_HASH define bool = true
+	HTTP_UPSTREAM_LEAST_CONN define bool = true
+	HTTP_UPSTREAM_RANDOM define bool = true
+	HTTP_UPSTREAM_KEEPALIVE define bool = true
+	HTTP_UPSTREAM_ZONE define bool = true
+
+	HTTP_STUB_STATUS define bool = false
+
+	MAIL define bool = false
+	MAIL_SSL define bool = true
+	MAIL_POP3 define bool = true
+	MAIL_IMAP define bool = true
+	MAIL_SMTP define bool = true
+
+	STREAM define bool = false
+	STREAM_SSL define bool = false
+	STREAM_REALIP define bool = false
+	STREAM_LIMIT_CONN define bool = true
+	STREAM_ACCESS define bool = true
+	STREAM_GEO define bool = true
+	STREAM_GEOIP define bool = false
+	STREAM_MAP define bool = true
+	STREAM_SPLIT_CLIENTS define bool = true
+	STREAM_RETURN define bool = true
+	STREAM_SET define bool = true
+	STREAM_UPSTREAM_HASH define bool = true
+	STREAM_UPSTREAM_LEAST_CONN define bool = true
+	STREAM_UPSTREAM_RANDOM define bool = true
+	STREAM_UPSTREAM_ZONE define bool = true
+	STREAM_SSL_PREREAD define bool = false
+
+
+	USE_OPENSSL define bool = true
+
+	NGX_COMPAT define bool = false
+
+	USE_PCRE define bool = true
+	PCRE_JIT define bool = true
+
+	USE_PERL define bool = false
+	USE_LIBXSLT define bool = false
+	USE_LIBGD define bool = false
+
+	NGX_LIBATOMIC define bool = false
+	NGX_GOOGLE_PERFTOOLS define bool = false
+
+	NGX_USER define string = "nobody"
+	NGX_GROUP define string = "nobody"
+
+	ADDON_STICKY define bool = false
+}
