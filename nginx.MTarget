@@ -1,0 +1,330 @@
+﻿
+%Target Exe_nginx
+{
+	Include "nginx_Options.MHeader"
+	Include "nginx_Modules.MHeader"
+	Include "nginx_Sources.MHeader"
+	Include "nginx_ModulesCalc.MHeader"
+	
+	///
+	/// Settings
+	/// ========
+	Property
+	{
+		MalterlibLinkWithOpenSSL true
+		ProductName "Malterlib nginx build"
+	}
+	Target
+	{
+		GenerateScheme false
+		{
+			!!GeneratorFamily Xcode
+		}
+		Type ConsoleExecutable
+		BaseName "nginx"
+		FileName "nginx"
+		CharacterSet "MultiByte"
+		{
+			!!PlatformFamily Windows
+		}
+		LinkWithLibraries "-lcrypt @(Target.LinkWithLibraries)"
+		{
+			!!PlatformFamily "Linux"
+		}
+	}
+	Compile
+	{
+		!!CompileDialect C
+		PrefixHeader ""
+		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('../pcre'));@(Compile.SearchPath)"
+		{
+			!!USE_PCRE true
+		}
+		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/core'));@(Compile.SearchPath)"
+		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/os/unix'));@(Compile.SearchPath)"
+		{
+			!PlatformFamily Windows
+		}
+		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/os/win32'));@(Compile.SearchPath)"
+		{
+			!!PlatformFamily Windows
+		}
+		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/event'));@(Compile.SearchPath)"
+		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/event/modules'));@(Compile.SearchPath)"
+		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/http'));@(Compile.SearchPath)"
+		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/http/v2'));@(Compile.SearchPath)"
+		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/http/modules'));@(Compile.SearchPath)"
+		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('../../SDK/zlib'));@(Compile.SearchPath)"
+
+		CLanguage "C99"
+		{
+			&
+			{
+				PlatformFamily "Linux"
+				Compile.Type "C"
+			}
+		}
+		PreprocessorDefines "_FILE_OFFSET_BITS=64;_GNU_SOURCE;_XOPEN_SOURCE=600;_LARGEFILE_SOURCE;@(Compile.PreprocessorDefines)"
+		{
+			&
+			{
+				PlatformFamily "Linux"
+				Compile.Type "C"
+			}
+		}
+	}
+	%Group Source
+	{
+		%File "Malterlib_nginx.cpp"
+		%Group Modules
+		{
+			%GenerateFile "ngx_modules.c"
+			{
+				Property
+				{
+					ExternModuleDefinesTemplate "extern ngx_module_t @(Explodee);\n"
+					{
+						!Explodee ""
+					}
+					ExternModuleDefines "@(Builtin.Function->ExplodeList('@(modules)', ';', 'ExternModuleDefinesTemplate'))"
+
+					ModuleArrayContentsTemplate "\t&@(Explodee),\n"
+					{
+						!Explodee ""
+					}
+					ModuleArrayContents "@(Builtin.Function->ExplodeList('@(modules)', ';', 'ModuleArrayContentsTemplate'))"
+
+					ModuleNamesArrayContentsTemplate "\t\"@(Explodee)\",\n"
+					{
+						!Explodee ""
+					}
+					ModuleNamesArrayContents "@(Builtin.Function->ExplodeList('@(modules)', ';', 'ModuleNamesArrayContentsTemplate'))"
+
+					Name "@(GeneratedDirectory)ngx_modules.c"
+					Contents	"#include <ngx_config.h>\n"\
+								"#include <ngx_core.h>\n"\
+								"\n"\
+								"@(ExternModuleDefines)\n"\
+								"\n"\
+								"ngx_module_t *ngx_modules[] = {\n"\
+								"@(ModuleArrayContents)"\
+								"\tNULL\n"\
+								"};\n"\
+								"\n"\
+								"char *ngx_module_names[] = {\n"\
+								"@(ModuleNamesArrayContents)"\
+								"\tNULL\n"\
+								"};\n"\
+								"\n"
+					
+					
+					UnixLineEnds "@(ScriptUnixLineEnds)"
+					UnicodeBOM true
+				}
+			}
+		}
+		%Group Config
+		{
+			%GenerateFile "ngx_auto_headers.h"
+			{
+				Property
+				{
+					HaveFeatureDefinesLineTemplate	"#define @(Expand0) 1"
+					{
+						!!Expand1 ""
+					}
+					HaveFeatureDefinesLineTemplate	"#define @(Expand0) @(Expand1)"
+					{
+						!Expand1 ""
+					}
+					
+					HaveFeatureDefinesTemplate "@(Builtin.Function->ExpandList('@(Explodee)', '=', 'HaveFeatureDefinesLineTemplate'))\n"
+					{
+						!Explodee ""
+					}
+					HaveFeatureDefines "@(Builtin.Function->ExplodeList('@(have_headers)', ';', 'HaveFeatureDefinesTemplate'))"
+					
+					Name "@(GeneratedDirectory)ngx_auto_headers.h"
+					Contents	"@(HaveFeatureDefines)\n"
+					
+					UnixLineEnds "@(ScriptUnixLineEnds)"
+					UnicodeBOM true
+				}
+			}
+			%GenerateFile "ngx_auto_config.h"
+			{
+				Property
+				{
+					HaveFeatureDefinesLineTemplate	"#define @(Expand0) 1"
+					{
+						!!Expand1 ""
+					}
+					HaveFeatureDefinesLineTemplate	"#define @(Expand0) @(Expand1)"
+					{
+						!Expand1 ""
+					}
+					
+					HaveFeatureDefinesTemplate "@(Builtin.Function->ExpandList('@(Explodee)', '=', 'HaveFeatureDefinesLineTemplate'))\n"
+					{
+						!Explodee ""
+					}
+					HaveFeatureDefines "@(Builtin.Function->ExplodeList('@(have)', ';', 'HaveFeatureDefinesTemplate'))"
+					
+					Name "@(GeneratedDirectory)ngx_auto_config.h"
+					Contents	"@(HaveFeatureDefines)\n\n\n\n"\
+								"#define NGX_PREFIX  \"./\"\n"\
+								"#define NGX_CONF_PREFIX  \"conf/\"\n"\
+								"#define NGX_SBIN_PATH  \"\"\n"\
+								"#define NGX_CONF_PATH  \"conf/nginx.conf\"\n"\
+								"#define NGX_PID_PATH  \"logs/nginx.pid_\"\n"\
+								"#define NGX_LOCK_PATH  \"logs/nginx.lock\"\n"\
+								"#define NGX_ERROR_LOG_PATH  \"logs/error.log_\"\n"\
+								"#define NGX_HTTP_LOG_PATH  \"logs/access.log\"\n"\
+								"#define NGX_HTTP_CLIENT_TEMP_PATH  \"client_body_temp\"\n"\
+								"#define NGX_HTTP_PROXY_TEMP_PATH  \"proxy_temp\"\n"\
+								"#define NGX_HTTP_FASTCGI_TEMP_PATH  \"fastcgi_temp\"\n"\
+								"#define NGX_HTTP_UWSGI_TEMP_PATH  \"uwsgi_temp\"\n"\
+								"#define NGX_HTTP_SCGI_TEMP_PATH  \"scgi_temp\"\n"\
+								"#define NGX_USER  \"@(NGX_USER)\"\n"\
+								"#define NGX_GROUP  \"@(NGX_GROUP)\"\n"
+					
+					UnixLineEnds "@(ScriptUnixLineEnds)"
+					UnicodeBOM true
+				}
+			}
+		}
+		%Group "Core"
+		{
+ 			%File "src/core/*.c"
+			{
+				Compile.Disabled true
+			}
+			%File "src/core/*.h"
+ 			%File "src/event/*.c"
+			{
+				Compile.Disabled true
+			}
+			%File "src/event/*.h"
+ 			%File "src/event/modules/*.c"
+			{
+				Compile.Disabled true
+			}
+			%File "src/event/modules/*.h"
+ 			%File "src/os/unix/*.c"
+			{
+				Compile.Disabled true
+			}
+			%File "src/os/unix/*.h"
+ 			%File "src/os/win32/*.c"
+			{
+				Compile.Disabled true
+			}
+			%File "src/os/win32/*.h"
+			%File "@(CORE_SRCS);@(EVENT_SRCS)"
+			{
+				Compile.Disabled false
+			}
+		}
+		%Group "HTTP"
+		{
+			!!HTTP true
+			%File "src/http/*.c"
+			{
+				Compile.Disabled true
+			}
+			%File "src/http/*.h"
+			%File "src/http/modules/*.c"
+			{
+				Compile.Disabled true
+			}
+			%File "src/http/modules/*.h"
+			%File "src/http/modules/perl/*.c"
+			{
+				Compile.Disabled true
+			}
+			%File "src/http/modules/perl/*.h"
+			%File "@(HTTP_SRCS)"
+			{
+				Compile.Disabled false
+			}
+		}
+		%Group "Mail"
+		{
+			!!MAIL true
+			%File "src/mail/*.h"
+			%File "src/mail/*.c"
+			{
+				Compile.Disabled true
+			}
+			%File "@(MAIL_SRCS)"
+			{
+				Compile.Disabled false
+			}
+		}
+		%Group "Misc"
+		{
+			!NGX_MISC_SRCS ""
+			%File "@(NGX_MISC_SRCS)"
+		}
+		%Group auto
+		{
+			%File "auto/*"
+			%Group os
+			{
+				%File "auto/os/*"
+			}
+			%Group cc
+			{
+				%File "auto/cc/*"
+			}
+			%Group lib
+			{
+				%File "auto/lib/*"
+				%Group geoip
+				{
+					%File "auto/lib/geoip/*"
+				}
+				%Group google-perftools
+				{
+					%File "auto/lib/google-perftools/*"
+				}
+				%Group libatomic
+				{
+					%File "auto/lib/libatomic/*"
+				}
+				%Group libgd
+				{
+					%File "auto/lib/libgd/*"
+				}
+				%Group libxslt
+				{
+					%File "auto/lib/libxslt/*"
+				}
+				%Group openssl
+				{
+					%File "auto/lib/openssl/*"
+				}
+				%Group pcre
+				{
+					%File "auto/lib/pcre/*"
+				}
+				%Group perl
+				{
+					%File "auto/lib/perl/*"
+				}
+				%Group zlib
+				{
+					%File "auto/lib/zlib/*"
+				}
+			}
+			%Group types
+			{
+				%File "auto/types/*"
+			}
+		}
+	}
+	
+	%Dependency Lib_zlib
+	%Dependency Lib_pcre
+	%Dependency Lib_Malterlib
+}
