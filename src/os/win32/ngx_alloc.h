@@ -15,9 +15,11 @@
 
 void *ngx_alloc(size_t size, ngx_log_t *log);
 void *ngx_calloc(size_t size, ngx_log_t *log);
-
-#define ngx_free          free
-#define ngx_memalign(alignment, size, log)  ngx_alloc(size, log)
+void ngx_free(void *mem);
+void *ngx_memalign(size_t alignment, size_t size, ngx_log_t *log);
+ 
+//#define ngx_free          free
+//#define ngx_memalign(alignment, size, log)  ngx_alloc(size, log)
 
 extern ngx_uint_t  ngx_pagesize;
 extern ngx_uint_t  ngx_pagesize_shift;
