@@ -14,8 +14,8 @@ typedef struct {
 } ngx_regex_conf_t;
 
 
-static void * ngx_libc_cdecl ngx_regex_malloc(size_t size);
-static void ngx_libc_cdecl ngx_regex_free(void *p);
+static void * ngx_regex_malloc(size_t size);
+static void ngx_regex_free(void *p);
 #if (NGX_HAVE_PCRE_JIT)
 static void ngx_pcre_free_studies(void *data);
 #endif
@@ -227,7 +227,7 @@ ngx_regex_exec_array(ngx_array_t *a, ngx_str_t *s, ngx_log_t *log)
 }
 
 
-static void * ngx_libc_cdecl
+static void * 
 ngx_regex_malloc(size_t size)
 {
     ngx_pool_t      *pool;
@@ -241,7 +241,7 @@ ngx_regex_malloc(size_t size)
 }
 
 
-static void ngx_libc_cdecl
+static void 
 ngx_regex_free(void *p)
 {
     return;
