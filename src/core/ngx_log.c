@@ -391,7 +391,7 @@ ngx_log_init(u_char *prefix, u_char *error_log)
     }
 
     if (p) {
-        ngx_free(p);
+        free(p);
     }
 
     return &ngx_log;
