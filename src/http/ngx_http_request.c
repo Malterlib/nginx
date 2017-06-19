@@ -432,7 +432,7 @@ ngx_http_wait_request_handler(ngx_event_t *rev)
         b->end = b->last + size;
     }
 
-    n = c->recv(c, b->last, size);
+    n = c->recv(c, b->last, b->end - b->last);
 
     if (n == NGX_AGAIN) {
 
