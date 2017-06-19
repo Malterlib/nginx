@@ -15,8 +15,9 @@
 
 void *ngx_alloc(size_t size, ngx_log_t *log);
 void *ngx_calloc(size_t size, ngx_log_t *log);
+void ngx_free(void* mem);
 
-#define ngx_free          free
+//#define ngx_free          free
 
 
 /*
