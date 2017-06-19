@@ -1,0 +1,404 @@
+
+Property
+{
+	// Options
+	NGX_DEBUG true
+	{
+		&
+		{
+			DebugCode true
+			NGX_DEBUG ""
+		}
+	}
+	
+	EVENT_FOUND false
+	{
+		!!EVENT_FOUND ""
+	}
+	EVENT_SELECT false
+	{
+		!!EVENT_SELECT ""
+	}
+	EVENT_POLL false
+	{
+		!!EVENT_POLL ""
+	}
+
+	EVENT_IOCP false
+	{
+		!!EVENT_IOCP ""
+	}
+
+	USE_THREADS true
+	{
+		!!USE_THREADS ""
+	}
+
+	NGX_FILE_AIO false
+	{
+		!!NGX_FILE_AIO ""
+	}
+	
+	NGX_TEST_BUILD_DEVPOLL false
+	{
+		!!NGX_TEST_BUILD_DEVPOLL ""
+	}
+	NGX_TEST_BUILD_EVENTPORT false
+	{
+		!!NGX_TEST_BUILD_EVENTPORT ""
+	}
+	NGX_TEST_BUILD_EPOLL false
+	{
+		!!NGX_TEST_BUILD_EPOLL ""
+	}
+	NGX_TEST_BUILD_SOLARIS_SENDFILEV false
+	{
+		!!NGX_TEST_BUILD_SOLARIS_SENDFILEV ""
+	}
+
+	HTTP true
+	{
+		!!HTTP ""
+	}
+
+	HTTP_CACHE true
+	{
+		!!HTTP_CACHE ""
+	}
+	HTTP_CHARSET true
+	{
+		!!HTTP_CHARSET ""
+	}
+	HTTP_GZIP true
+	{
+		!!HTTP_GZIP ""
+	}
+	HTTP_SSL true
+	{
+		!!HTTP_SSL ""
+	}
+	HTTP_V2 true
+	{
+		!!HTTP_V2 ""
+	}
+	HTTP_SLICE false
+	{
+		!!HTTP_SLICE ""
+	}
+	HTTP_SSI true
+	{
+		!!HTTP_SSI ""
+	}
+	HTTP_POSTPONE false
+	{
+		!!HTTP_POSTPONE ""
+	}
+	HTTP_REALIP false
+	{
+		!!HTTP_REALIP ""
+	}
+	HTTP_XSLT false
+	{
+		!!HTTP_XSLT ""
+	}
+	HTTP_IMAGE_FILTER false
+	{
+		!!HTTP_IMAGE_FILTER ""
+	}
+	HTTP_SUB false
+	{
+		!!HTTP_SUB ""
+	}
+	HTTP_ADDITION false
+	{
+		!!HTTP_ADDITION ""
+	}
+	HTTP_DAV false
+	{
+		!!HTTP_DAV ""
+	}
+	HTTP_ACCESS true
+	{
+		!!HTTP_ACCESS ""
+	}
+	HTTP_AUTH_BASIC true
+	{
+		!!HTTP_AUTH_BASIC ""
+	}
+	HTTP_AUTH_REQUEST false
+	{
+		!!HTTP_AUTH_REQUEST ""
+	}
+	HTTP_MIRROR true
+	{
+		!!HTTP_MIRROR ""
+	}
+	HTTP_USERID true
+	{
+		!!HTTP_USERID ""
+	}
+	HTTP_AUTOINDEX true
+	{
+		!!HTTP_AUTOINDEX ""
+	}
+	HTTP_RANDOM_INDEX false
+	{
+		!!HTTP_RANDOM_INDEX ""
+	}
+	HTTP_STATUS false
+	{
+		!!HTTP_STATUS ""
+	}
+	HTTP_GEO true
+	{
+		!!HTTP_GEO ""
+	}
+	HTTP_GEOIP false
+	{
+		!!HTTP_GEOIP ""
+	}
+	HTTP_MAP true
+	{
+		!!HTTP_MAP ""
+	}
+	HTTP_SPLIT_CLIENTS true
+	{
+		!!HTTP_SPLIT_CLIENTS ""
+	}
+	HTTP_REFERER true
+	{
+		!!HTTP_REFERER ""
+	}
+	HTTP_REWRITE true
+	{
+		!!HTTP_REWRITE ""
+	}
+	HTTP_PROXY true
+	{
+		!!HTTP_PROXY ""
+	}
+	HTTP_FASTCGI true
+	{
+		!!HTTP_FASTCGI ""
+	}
+	HTTP_UWSGI true
+	{
+		!!HTTP_UWSGI ""
+	}
+	HTTP_SCGI true
+	{
+		!!HTTP_SCGI ""
+	}
+	HTTP_GRPC true
+	{
+		!!HTTP_GRPC ""
+	}
+	HTTP_PERL false
+	{
+		!!HTTP_PERL ""
+	}
+	HTTP_MEMCACHED true
+	{
+		!!HTTP_MEMCACHED ""
+	}
+	HTTP_LIMIT_CONN true
+	{
+		!!HTTP_LIMIT_CONN ""
+	}
+	HTTP_LIMIT_REQ true
+	{
+		!!HTTP_LIMIT_REQ ""
+	}
+	HTTP_EMPTY_GIF true
+	{
+		!!HTTP_EMPTY_GIF ""
+	}
+	HTTP_BROWSER true
+	{
+		!!HTTP_BROWSER ""
+	}
+	HTTP_SECURE_LINK false
+	{
+		!!HTTP_SECURE_LINK ""
+	}
+	HTTP_DEGRADATION false
+	{
+		!!HTTP_DEGRADATION ""
+	}
+	HTTP_FLV false
+	{
+		!!HTTP_FLV ""
+	}
+	HTTP_MP4 false
+	{
+		!!HTTP_MP4 ""
+	}
+	HTTP_GUNZIP false
+	{
+		!!HTTP_GUNZIP ""
+	}
+	HTTP_GZIP_STATIC true
+	{
+		!!HTTP_GZIP_STATIC ""
+	}
+	HTTP_UPSTREAM_HASH true
+	{
+		!!HTTP_UPSTREAM_HASH ""
+	}
+	HTTP_UPSTREAM_IP_HASH true
+	{
+		!!HTTP_UPSTREAM_IP_HASH ""
+	}
+	HTTP_UPSTREAM_LEAST_CONN true
+	{
+		!!HTTP_UPSTREAM_LEAST_CONN ""
+	}
+	HTTP_UPSTREAM_KEEPALIVE true
+	{
+		!!HTTP_UPSTREAM_KEEPALIVE ""
+	}
+	HTTP_UPSTREAM_ZONE true
+	{
+		!!HTTP_UPSTREAM_ZONE ""
+	}
+
+	HTTP_STUB_STATUS false
+	{
+		!!HTTP_STUB_STATUS ""
+	}
+
+	MAIL false
+	{
+		!!MAIL ""
+	}
+	MAIL_SSL true
+	{
+		!!MAIL_SSL ""
+	}
+	MAIL_POP3 true
+	{
+		!!MAIL_POP3 ""
+	}
+	MAIL_IMAP true
+	{
+		!!MAIL_IMAP ""
+	}
+	MAIL_SMTP true
+	{
+		!!MAIL_SMTP ""
+	}
+	
+	STREAM false
+	{
+		!!STREAM ""
+	}
+	STREAM_SSL false
+	{
+		!!STREAM_SSL ""
+	}
+	STREAM_REALIP false
+	{
+		!!STREAM_REALIP ""
+	}
+	STREAM_LIMIT_CONN true
+	{
+		!!STREAM_LIMIT_CONN ""
+	}
+	STREAM_ACCESS true
+	{
+		!!STREAM_ACCESS ""
+	}
+	STREAM_GEO true
+	{
+		!!STREAM_GEO ""
+	}
+	STREAM_GEOIP false
+	{
+		!!STREAM_GEOIP ""
+	}
+	STREAM_MAP true
+	{
+		!!STREAM_MAP ""
+	}
+	STREAM_SPLIT_CLIENTS true
+	{
+		!!STREAM_SPLIT_CLIENTS ""
+	}
+	STREAM_RETURN true
+	{
+		!!STREAM_RETURN ""
+	}
+	STREAM_UPSTREAM_HASH true
+	{
+		!!STREAM_UPSTREAM_HASH ""
+	}
+	STREAM_UPSTREAM_LEAST_CONN true
+	{
+		!!STREAM_UPSTREAM_LEAST_CONN ""
+	}
+	STREAM_UPSTREAM_ZONE true
+	{
+		!!STREAM_UPSTREAM_ZONE ""
+	}
+	STREAM_SSL_PREREAD false
+	{
+		!!STREAM_SSL_PREREAD ""
+	}
+	
+	
+	USE_OPENSSL true
+	{
+		!!USE_OPENSSL ""
+	}
+	
+	NGX_COMPAT false
+	{
+		!!NGX_COMPAT ""
+	}
+	
+	USE_PCRE true
+	{
+		!!USE_PCRE ""
+	}
+	PCRE_JIT true
+	{
+		!!PCRE_JIT ""
+	}
+	
+	USE_PERL false
+	{
+		!!USE_PERL ""
+	}
+	USE_LIBXSLT false
+	{
+		!!USE_LIBXSLT ""
+	}
+	USE_LIBGD false
+	{
+		!!USE_LIBGD ""
+	}
+	
+	NGX_LIBATOMIC false
+	{
+		!!NGX_LIBATOMIC ""
+	}
+	NGX_GOOGLE_PERFTOOLS false
+	{
+		!!NGX_GOOGLE_PERFTOOLS ""
+	}
+	
+	NGX_USER "nobody"
+	{
+		!!NGX_USER ""
+	}
+	
+	NGX_GROUP "nobody"
+	{
+		!!NGX_GROUP ""
+	}
+	
+	ADDON_STICKY false
+	{
+		!!ADDON_STICKY ""
+	}
+}
