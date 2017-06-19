@@ -1,0 +1,145 @@
+
+Property
+{
+	// Options
+	NGX_DEBUG: bool = false
+	NGX_DEBUG true
+	{
+		&
+		{
+			NGX_DEBUG undefined
+			DebugCode true
+		}
+	}
+
+	EVENT_FOUND: bool = false
+	EVENT_SELECT: bool = false
+	EVENT_POLL: bool = false
+	EVENT_IOCP: bool = false
+	USE_THREADS: bool = true
+	NGX_FILE_AIO: bool = false
+	NGX_TEST_BUILD_DEVPOLL: bool = false
+	NGX_TEST_BUILD_EVENTPORT: bool = false
+	NGX_TEST_BUILD_EPOLL: bool = false
+	NGX_TEST_BUILD_SOLARIS_SENDFILEV: bool = false
+
+	HTTP: bool = true
+
+	HTTP_CACHE: bool = true
+	HTTP_CHARSET: bool = true
+	HTTP_GZIP: bool = true
+	HTTP_SSL: bool = true
+	HTTP_V2: bool = true
+	HTTP_V3: bool = false
+	HTTP_SLICE: bool = false
+	HTTP_SSI: bool = true
+	HTTP_REALIP: bool = false
+	HTTP_XSLT: bool = false
+	HTTP_IMAGE_FILTER: bool = false
+	HTTP_SUB: bool = false
+	HTTP_ADDITION: bool = false
+	HTTP_DAV: bool = false
+	HTTP_ACCESS: bool = true
+	HTTP_AUTH_BASIC: bool = false
+	HTTP_AUTH_REQUEST: bool = false
+	HTTP_MIRROR: bool = true
+	HTTP_USERID: bool = true
+	HTTP_AUTOINDEX: bool = true
+	HTTP_RANDOM_INDEX: bool = false
+	HTTP_STATUS: bool = false
+	HTTP_GEO: bool = true
+	HTTP_GEOIP: bool = false
+	HTTP_MAP: bool = true
+	HTTP_SPLIT_CLIENTS: bool = true
+	HTTP_REFERER: bool = true
+	HTTP_REWRITE: bool = true
+	HTTP_PROXY: bool = true
+	HTTP_FASTCGI: bool = true
+	HTTP_UWSGI: bool = true
+	HTTP_SCGI: bool = true
+	HTTP_GRPC: bool = true
+	HTTP_PERL: bool = false
+	HTTP_MEMCACHED: bool = true
+	HTTP_LIMIT_CONN: bool = true
+	HTTP_LIMIT_REQ: bool = true
+	HTTP_EMPTY_GIF: bool = true
+	HTTP_BROWSER: bool = true
+	HTTP_SECURE_LINK: bool = false
+	HTTP_DEGRADATION: bool = false
+	HTTP_FLV: bool = false
+	HTTP_MP4: bool = false
+	HTTP_GUNZIP: bool = false
+	HTTP_GZIP_STATIC: bool = true
+	HTTP_UPSTREAM_HASH: bool = true
+	HTTP_UPSTREAM_IP_HASH: bool = true
+	HTTP_UPSTREAM_LEAST_CONN: bool = true
+	HTTP_UPSTREAM_RANDOM: bool = true
+	HTTP_UPSTREAM_KEEPALIVE: bool = true
+	HTTP_UPSTREAM_ZONE: bool = true
+
+	HTTP_STUB_STATUS: bool = false
+
+	MAIL: bool = false
+	MAIL_SSL: bool = true
+	MAIL_POP3: bool = true
+	MAIL_IMAP: bool = true
+	MAIL_SMTP: bool = true
+
+	STREAM: bool = false
+	STREAM_SSL: bool = false
+	STREAM_REALIP: bool = false
+	STREAM_LIMIT_CONN: bool = true
+	STREAM_ACCESS: bool = true
+	STREAM_GEO: bool = true
+	STREAM_GEOIP: bool = false
+	STREAM_MAP: bool = true
+	STREAM_SPLIT_CLIENTS: bool = true
+	STREAM_RETURN: bool = true
+	STREAM_SET: bool = true
+	STREAM_UPSTREAM_HASH: bool = true
+	STREAM_UPSTREAM_LEAST_CONN: bool = true
+	STREAM_UPSTREAM_RANDOM: bool = true
+	STREAM_UPSTREAM_ZONE: bool = true
+	STREAM_SSL_PREREAD: bool = false
+
+	USE_OPENSSL: bool = true
+	USE_OPENSSL_QUIC: bool = false
+	USE_OPENSSL_QUIC true
+	{
+		&
+		{
+			USE_OPENSSL_QUIC undefined
+			HTTP_V3 true
+		}
+	}
+
+	SO_COOKIE: bool = false
+	QUIC_BPF: bool = false
+
+	QUIC_BPF true
+	{
+		&
+		{
+			QUIC_BPF undefined
+			SO_COOKIE true
+			HTTP_V3 true
+		}
+	}
+
+	NGX_COMPAT: bool = false
+
+	USE_PCRE: bool = true
+	PCRE_JIT: bool = true
+
+	USE_PERL: bool = false
+	USE_LIBXSLT: bool = false
+	USE_LIBGD: bool = false
+
+	NGX_LIBATOMIC: bool = false
+	NGX_GOOGLE_PERFTOOLS: bool = false
+
+	NGX_USER: string = "nobody"
+	NGX_GROUP: string = "nobody"
+
+	ADDON_STICKY: bool = false
+}
