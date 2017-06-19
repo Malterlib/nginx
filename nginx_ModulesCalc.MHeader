@@ -1,0 +1,1159 @@
+﻿
+// Calculate modules
+// Order is important here
+Property
+{
+	&
+	{
+		!EVENT_SELECT true
+		!EVENT_FOUND true
+	}
+	
+	EVENT_SELECT true
+}
+
+Property
+{
+	!!EVENT_SELECT true
+	
+	have "@(have);NGX_HAVE_SELECT"
+	CORE_SRCS "@(CORE_SRCS);@(SELECT_SRCS)"
+	EVENT_MODULES "@(EVENT_MODULES);@(SELECT_MODULE)"
+}
+
+
+Property
+{
+	&
+	{
+		!EVENT_POLL true
+		!EVENT_FOUND true
+	}
+	
+	EVENT_POLL true
+}
+
+Property
+{
+	!!EVENT_POLL true
+
+	have "@(have);NGX_HAVE_POLL"
+	CORE_SRCS "@(CORE_SRCS);@(POLL_SRCS)"
+	EVENT_MODULES "@(EVENT_MODULES);@(POLL_MODULE)"
+}
+
+
+Property
+{
+	!!NGX_TEST_BUILD_DEVPOLL true
+
+	have "@(have);NGX_HAVE_DEVPOLL"
+	have "@(have);NGX_TEST_BUILD_DEVPOLL"
+	EVENT_MODULES "@(EVENT_MODULES);@(DEVPOLL_MODULE)"
+	CORE_SRCS "@(CORE_SRCS);@(DEVPOLL_SRCS)"
+}
+
+
+Property
+{
+	!!NGX_TEST_BUILD_EVENTPORT true
+
+	have "@(have);NGX_HAVE_EVENTPORT"
+	have "@(have);NGX_TEST_BUILD_EVENTPORT"
+	EVENT_MODULES "@(EVENT_MODULES);@(EVENTPORT_MODULE)"
+	CORE_SRCS "@(CORE_SRCS);@(EVENTPORT_SRCS)"
+}
+
+Property
+{
+	!!NGX_TEST_BUILD_EPOLL true
+
+	have "@(have);NGX_HAVE_EPOLL"
+	have "@(have);NGX_HAVE_EPOLLRDHUP"
+	have "@(have);NGX_HAVE_EVENTFD"
+    have "@(have);NGX_HAVE_EPOLLEXCLUSIVE"
+	have "@(have);NGX_TEST_BUILD_EPOLL"
+	EVENT_MODULES "@(EVENT_MODULES);@(EPOLL_MODULE)"
+	CORE_SRCS "@(CORE_SRCS);@(EPOLL_SRCS)"
+}
+
+Property
+{
+	!!NGX_TEST_BUILD_SOLARIS_SENDFILEV true
+
+	have "@(have);NGX_TEST_BUILD_SOLARIS_SENDFILEV"
+	CORE_SRCS "@(CORE_SRCS);@(SOLARIS_SENDFILEV_SRCS)"
+}
+
+
+Property
+{
+	!HTTP true
+
+	have "@(have);NGX_CRYPT=0"
+	CRYPT_LIB ""
+}
+
+
+Property
+{
+	!!HTTP_CACHE true
+
+	have "@(have);NGX_HTTP_CACHE"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_FILE_CACHE_SRCS)"
+}
+
+
+Property
+{
+	!!HTTP_SLICE true
+	
+	HTTP_POSTPONE true
+}
+
+
+Property
+{
+	!!HTTP_SSI true
+	
+	HTTP_POSTPONE true
+}
+
+
+Property
+{
+	!!HTTP_ADDITION true
+	
+	HTTP_POSTPONE true
+}
+
+
+Property
+{
+	HTTP_FILTER_MODULES "@(HTTP_WRITE_FILTER_MODULE);@(HTTP_HEADER_FILTER_MODULE);@(HTTP_CHUNKED_FILTER_MODULE)"
+}
+Property
+{
+	!!HTTP_V2 true
+	
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_V2_FILTER_MODULE)"
+}
+Property
+{
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_RANGE_HEADER_FILTER_MODULE)"
+}
+Property
+{
+	!!HTTP_GZIP true 
+	
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_GZIP_FILTER_MODULE)"
+	have "@(have);NGX_HTTP_GZIP"
+	USE_ZLIB true
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_GZIP_SRCS)"
+}
+Property
+{
+	!!HTTP_POSTPONE true 
+	
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_POSTPONE_FILTER_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_POSTPONE_FILTER_SRCS)"
+}
+
+Property
+{
+	!!HTTP_SLICE true 
+	
+	have "@(have);NGX_HTTP_SLICE"
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_SLICE_FILTER_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_SLICE_SRCS)"
+}
+
+Property
+{
+	!!HTTP_SSI true 
+	
+	have "@(have);NGX_HTTP_SSI"
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_SSI_FILTER_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_SSI_SRCS)"
+}
+
+Property
+{
+	!!HTTP_CHARSET true 
+	
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_CHARSET_FILTER_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_CHARSET_SRCS)"
+}
+
+Property
+{
+	!!HTTP_XSLT true 
+	
+	USE_LIBXSLT true
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_XSLT_FILTER_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_XSLT_SRCS)"
+}
+
+Property
+{
+	!!HTTP_IMAGE_FILTER true 
+	
+	USE_LIBGD true
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_IMAGE_FILTER_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_IMAGE_SRCS)"
+}
+
+Property
+{
+	!!HTTP_SUB true 
+	
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_SUB_FILTER_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_SUB_SRCS)"
+}
+
+Property
+{
+	!!HTTP_ADDITION true 
+	
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_ADDITION_FILTER_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_ADDITION_SRCS)"
+}
+
+Property
+{
+	!!HTTP_GUNZIP true 
+	
+	have "@(have);NGX_HTTP_GZIP"
+	USE_ZLIB true
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_GUNZIP_FILTER_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_GUNZIP_SRCS)"
+}
+
+Property
+{
+	!!HTTP_USERID true 
+	
+	HTTP_FILTER_MODULES "@(HTTP_FILTER_MODULES);@(HTTP_USERID_FILTER_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_USERID_SRCS)"
+}
+
+Property
+{
+	!!HTTP_V2 true 
+	
+	have "@(have);NGX_HTTP_V2"
+	USE_ZLIB true
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_V2_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_V2_SRCS)"
+}
+Property
+{
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_STATIC_MODULE)"
+}
+
+Property
+{
+	!!HTTP_GZIP_STATIC true 
+	
+	have "@(have);NGX_HTTP_GZIP"
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_GZIP_STATIC_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_GZIP_STATIC_SRCS)"
+}
+
+Property
+{
+	!!HTTP_DAV true 
+	
+	have "@(have);NGX_HTTP_DAV"
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_DAV_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_DAV_SRCS)"
+}
+
+Property
+{
+	!!HTTP_AUTOINDEX true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_AUTOINDEX_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_AUTOINDEX_SRCS)"
+}
+
+Property
+{
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_INDEX_MODULE)"
+}
+
+Property
+{
+	!!HTTP_RANDOM_INDEX true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_RANDOM_INDEX_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_RANDOM_INDEX_SRCS)"
+}
+
+Property
+{
+	!!HTTP_AUTH_REQUEST true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_AUTH_REQUEST_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_AUTH_REQUEST_SRCS)"
+}
+
+Property
+{
+	!!HTTP_AUTH_BASIC true 
+	
+	have "@(have);NGX_CRYPT"
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_AUTH_BASIC_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_AUTH_BASIC_SRCS)"
+}
+
+Property
+{
+	!!HTTP_ACCESS true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_ACCESS_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_ACCESS_SRCS)"
+}
+
+Property
+{
+	!!HTTP_LIMIT_CONN true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_LIMIT_CONN_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_LIMIT_CONN_SRCS)"
+}
+
+Property
+{
+	!!HTTP_LIMIT_REQ true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_LIMIT_REQ_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_LIMIT_REQ_SRCS)"
+}
+
+Property
+{
+	!!HTTP_REALIP true 
+	
+	have "@(have);NGX_HTTP_REALIP"
+	have "@(have);NGX_HTTP_X_FORWARDED_FOR"
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_REALIP_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_REALIP_SRCS)"
+}
+
+Property
+{
+	!!HTTP_STATUS true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_STATUS_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_STATUS_SRCS)"
+}
+
+Property
+{
+	!!HTTP_GEO true 
+	
+	have "@(have);NGX_HTTP_X_FORWARDED_FOR"
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_GEO_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_GEO_SRCS)"
+}
+
+Property
+{
+	!!HTTP_GEOIP true 
+	
+	have "@(have);NGX_HTTP_X_FORWARDED_FOR"
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_GEOIP_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_GEOIP_SRCS)"
+}
+
+Property
+{
+	!!HTTP_MAP true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_MAP_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_MAP_SRCS)"
+}
+
+Property
+{
+	!!HTTP_SPLIT_CLIENTS true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_SPLIT_CLIENTS_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_SPLIT_CLIENTS_SRCS)"
+}
+
+Property
+{
+	!!HTTP_REFERER true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_REFERER_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_REFERER_SRCS)"
+}
+
+Property
+{
+	!!HTTP_REWRITE true
+	
+	USE_PCRE true
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_REWRITE_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_REWRITE_SRCS)"
+}
+
+Property
+{
+	!!HTTP_SSL true 
+	
+	USE_OPENSSL true
+	have "@(have);NGX_HTTP_SSL"
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_SSL_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_SSL_SRCS)"
+}
+
+Property
+{
+	!!HTTP_PROXY true 
+	
+	have "@(have);NGX_HTTP_X_FORWARDED_FOR"
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_PROXY_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_PROXY_SRCS)"
+}
+
+Property
+{
+	!!HTTP_FASTCGI true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_FASTCGI_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_FASTCGI_SRCS)"
+}
+
+Property
+{
+	!!HTTP_UWSGI true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_UWSGI_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_UWSGI_SRCS)"
+}
+
+Property
+{
+	!!HTTP_SCGI true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_SCGI_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_SCGI_SRCS)"
+}
+
+Property
+{
+	!!HTTP_PERL true 
+	
+	USE_PERL true
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_PERL_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_PERL_SRCS)"
+}
+
+Property
+{
+	!!HTTP_MEMCACHED true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_MEMCACHED_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_MEMCACHED_SRCS)"
+}
+
+Property
+{
+	!!HTTP_EMPTY_GIF true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_EMPTY_GIF_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_EMPTY_GIF_SRCS)"
+}
+
+Property
+{
+	!!HTTP_BROWSER true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_BROWSER_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_BROWSER_SRCS)"
+}
+
+Property
+{
+	!!HTTP_SECURE_LINK true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_SECURE_LINK_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_SECURE_LINK_SRCS)"
+}
+
+Property
+{
+	!!HTTP_DEGRADATION true 
+	
+	have "@(have);NGX_HTTP_DEGRADATION"
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_DEGRADATION_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_DEGRADATION_SRCS)"
+}
+
+Property
+{
+	!!HTTP_FLV true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_FLV_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_FLV_SRCS)"
+}
+
+Property
+{
+	!!HTTP_MP4 true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_MP4_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_MP4_SRCS)"
+}
+
+Property
+{
+	!!HTTP_UPSTREAM_HASH true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_UPSTREAM_HASH_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_UPSTREAM_HASH_SRCS)"
+}
+
+Property
+{
+	!!HTTP_UPSTREAM_IP_HASH true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_UPSTREAM_IP_HASH_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_UPSTREAM_IP_HASH_SRCS)"
+}
+
+Property
+{
+	!!HTTP_UPSTREAM_LEAST_CONN true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_UPSTREAM_LEAST_CONN_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_UPSTREAM_LEAST_CONN_SRCS)"
+}
+
+Property
+{
+	!!HTTP_UPSTREAM_KEEPALIVE true 
+	
+	HTTP_MODULES "@(HTTP_MODULES);@(HTTP_UPSTREAM_KEEPALIVE_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(HTTP_UPSTREAM_KEEPALIVE_SRCS)"
+}
+
+Property
+{
+	!!HTTP_UPSTREAM_ZONE true
+	
+	have "@(have);NGX_HTTP_UPSTREAM_ZONE"
+    HTTP_MODULES "@(HTTP_MODULES);@(HTTP_UPSTREAM_ZONE_MODULE)"
+    HTTP_SRCS "@(HTTP_SRCS);@(HTTP_UPSTREAM_ZONE_SRCS)"
+}
+
+Property
+{
+	!!HTTP_STUB_STATUS true 
+	
+	have "@(have);NGX_STAT_STUB"
+	HTTP_MODULES "@(HTTP_MODULES);ngx_http_stub_status_module"
+	HTTP_SRCS "@(HTTP_SRCS);src/http/modules/ngx_http_stub_status_module.c"
+}
+
+Property
+{
+	&
+	{
+		MAIL_SSL true 
+		MAIL true
+	}
+	
+	have "@(have);NGX_MAIL_SSL"
+	USE_OPENSSL true
+}
+
+Property
+{
+	&
+	{
+		STREAM_SSL true
+		STREAM true
+	}
+	
+	have "@(have);NGX_STREAM_SSL"
+	USE_OPENSSL true
+}
+
+
+Property
+{
+	modules "@(CORE_MODULES);@(EVENT_MODULES)"
+}
+
+
+Property
+{
+	&
+	{
+		USE_THREADS true
+		!PlatformFamily Windows
+	}
+
+    have "@(have);NGX_THREADS"
+    CORE_SRCS "@(CORE_SRCS);@(THREAD_POOL_SRCS)"
+	modules "@(modules);@(THREAD_POOL_MODULE)"
+}
+
+Property
+{
+	!!USE_OPENSSL true 
+	
+	modules "@(modules);@(OPENSSL_MODULE)"
+	CORE_SRCS "@(CORE_SRCS);@(OPENSSL_SRCS)"
+}
+
+Property
+{
+	!!USE_PCRE true 
+	
+	modules "@(modules);@(REGEX_MODULE)"
+	CORE_SRCS "@(CORE_SRCS);@(REGEX_SRCS)"
+}
+
+Property
+{
+	!!HTTP true 
+	
+	modules "@(modules);@(HTTP_MODULES);@(HTTP_FILTER_MODULES)"\
+			";@(HTTP_HEADERS_FILTER_MODULE)"\
+			";@(HTTP_AUX_FILTER_MODULES)"\
+			";@(HTTP_COPY_FILTER_MODULE)"\
+			";@(HTTP_RANGE_BODY_FILTER_MODULE)"\
+			";@(HTTP_NOT_MODIFIED_FILTER_MODULE)"
+}
+
+
+Property
+{
+	&
+	{
+		MAIL true 
+		MAIL_SSL true 
+	}
+	modules "@(modules);@(MAIL_SSL_MODULE)"
+	MAIL_SRCS "@(MAIL_SRCS);@(MAIL_SSL_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		MAIL true 
+		MAIL_POP3 true 
+	}
+	
+	modules "@(modules);@(MAIL_POP3_MODULE)"
+	MAIL_SRCS "@(MAIL_SRCS);@(MAIL_POP3_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		MAIL true 
+		MAIL_IMAP true 
+	}
+	
+	modules "@(modules);@(MAIL_IMAP_MODULE)"
+	MAIL_SRCS "@(MAIL_SRCS);@(MAIL_IMAP_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		MAIL true 
+		MAIL_SMTP true 
+	}
+	
+	modules "@(modules);@(MAIL_SMTP_MODULE)"
+	MAIL_SRCS "@(MAIL_SRCS);@(MAIL_SMTP_SRCS)"
+}
+Property
+{
+	!!MAIL true 
+	
+	modules "@(modules);@(MAIL_MODULES)"
+
+	modules "@(modules);@(MAIL_AUTH_HTTP_MODULE)"
+	MAIL_SRCS "@(MAIL_SRCS);@(MAIL_AUTH_HTTP_SRCS)"
+
+	modules "@(modules);@(MAIL_PROXY_MODULE)"
+	MAIL_SRCS "@(MAIL_SRCS);@(MAIL_PROXY_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_SSL true
+	}
+	
+	modules "@(modules);@(STREAM_SSL_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_SSL_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_REALIP true
+	}
+	
+	modules "@(modules);@(STREAM_REALIP_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_REALIP_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_LIMIT_CONN true
+	}
+	
+	modules "@(modules);@(STREAM_LIMIT_CONN_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_LIMIT_CONN_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_ACCESS true
+	}
+	
+	modules "@(modules);@(STREAM_ACCESS_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_ACCESS_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_GEO true
+	}
+	
+	modules "@(modules);@(STREAM_GEO_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_GEO_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_GEOIP true
+	}
+	
+	modules "@(modules);@(STREAM_GEOIP_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_GEOIP_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_MAP true
+	}
+	
+	modules "@(modules);@(STREAM_MAP_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_MAP_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_SPLIT_CLIENTS true
+	}
+	
+	modules "@(modules);@(STREAM_SPLIT_CLIENTS_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_SPLIT_CLIENTS_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_RETURN true
+	}
+	
+	modules "@(modules);@(STREAM_RETURN_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_RETURN_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_UPSTREAM_HASH true
+	}
+	
+	modules "@(modules);@(STREAM_UPSTREAM_HASH_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_UPSTREAM_HASH_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_UPSTREAM_LEAST_CONN true
+	}
+	
+	modules "@(modules);@(STREAM_UPSTREAM_LEAST_CONN_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_UPSTREAM_LEAST_CONN_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_UPSTREAM_ZONE true
+	}
+	
+	have "@(have);NGX_STREAM_UPSTREAM_ZONE"
+	modules "@(modules);@(STREAM_UPSTREAM_ZONE_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_UPSTREAM_ZONE_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
+		STREAM_SSL_PREREAD true
+	}
+	
+	modules "@(modules);@(STREAM_SSL_PREREAD_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_SSL_PREREAD_SRCS)"
+}
+
+Property
+{
+	!!STREAM true
+
+    have "@(have);NGX_STREAM"
+    modules "@(modules);@(STREAM_MODULES)"
+}
+
+Property
+{
+	!!NGX_GOOGLE_PERFTOOLS true 
+	
+	modules "@(modules);@(NGX_GOOGLE_PERFTOOLS_MODULE)"
+	NGX_MISC_SRCS "@(NGX_MISC_SRCS);@(NGX_GOOGLE_PERFTOOLS_SRCS)"
+}
+
+Property
+{
+	!!ADDON_STICKY true
+
+    HTTP_MODULES "@(HTTP_MODULES);@(NGX_ADDON_STICKY_MODULE)"
+	HTTP_SRCS "@(HTTP_SRCS);@(NGX_ADDON_STICKY_SRCS)"
+}
+
+
+/// 
+/// Platform specific
+/// =================
+
+Property
+{
+	!!PlatformFamily OSX
+	!!PlatformFamily Linux
+	have "@(have);NGX_HAVE_GCC_ATOMIC;NGX_HAVE_C99_VARIADIC_MACROS;NGX_HAVE_GCC_VARIADIC_MACROS;NGX_COMPILER=\"clang\""
+	
+}
+
+Property
+{
+	!!PlatformFamily Linux
+	
+	CORE_SRCS "@(CORE_SRCS);@(UNIX_SRCS);@(LINUX_SRCS);@(EPOLL_SRCS);@(LINUX_SENDFILE_SRCS)"
+	
+	have "@(have);NGX_HAVE_EPOLL"
+	have "@(have);NGX_HAVE_EPOLLRDHUP"
+	
+	have "@(have);NGX_HAVE_SENDFILE"
+	have "@(have);NGX_HAVE_SENDFILE64"
+	have "@(have);NGX_HAVE_PR_SET_DUMPABLE"
+	have "@(have);NGX_HAVE_SCHED_SETAFFINITY"
+	
+	have_headers "@(have_headers);NGX_LINUX"
+	have_headers "@(have_headers);NGX_HAVE_UNISTD_H"
+	have_headers "@(have_headers);NGX_HAVE_INTTYPES_H"
+	have_headers "@(have_headers);NGX_HAVE_LIMITS_H"
+	have_headers "@(have_headers);NGX_HAVE_SYS_PARAM_H"
+	have_headers "@(have_headers);NGX_HAVE_SYS_MOUNT_H"
+	have_headers "@(have_headers);NGX_HAVE_SYS_STATVFS_H"
+	have_headers "@(have_headers);NGX_HAVE_CRYPT_H"
+	have_headers "@(have_headers);NGX_HAVE_SYS_PRCTL_H"
+	have_headers "@(have_headers);NGX_HAVE_SYS_VFS_H"
+	
+	
+	have "@(have);NGX_HAVE_CLEAR_EVENT"
+	have "@(have);NGX_HAVE_POSIX_FADVISE"
+	have "@(have);NGX_HAVE_O_DIRECT"
+	have "@(have);NGX_HAVE_ALIGNED_DIRECTIO"
+	have "@(have);NGX_HAVE_STATFS"
+	have "@(have);NGX_HAVE_STATVFS"
+	have "@(have);NGX_HAVE_SCHED_YIELD"
+	have "@(have);NGX_HAVE_EVENTFD"
+//	have "@(have);NGX_HAVE_REUSEPORT"
+	have "@(have);NGX_HAVE_DEFERRED_ACCEPT"
+	have "@(have);NGX_HAVE_KEEPALIVE_TUNABLE"
+	have "@(have);NGX_HAVE_TCP_INFO"
+	have "@(have);NGX_HAVE_UNIX_DOMAIN"
+	have "@(have);NGX_SIG_ATOMIC_T_SIZE=4"
+	have "@(have);NGX_MAX_OFF_T_VALUE=9223372036854775807LL"
+	have "@(have);NGX_OFF_T_LEN=(sizeof(\"-9223372036854775808\") - 1)"
+	have "@(have);NGX_TIME_T_SIZE=8"
+	have "@(have);NGX_TIME_T_LEN=(sizeof(\"-9223372036854775808\") - 1)"
+	have "@(have);NGX_MAX_TIME_T_VALUE=9223372036854775807LL"
+	have "@(have);NGX_HAVE_PREAD"
+	have "@(have);NGX_HAVE_PWRITE"
+	have "@(have);NGX_SYS_NERR=135"
+	have "@(have);NGX_HAVE_LOCALTIME_R"
+	have "@(have);NGX_HAVE_POSIX_MEMALIGN"
+	have "@(have);NGX_HAVE_MEMALIGN"
+	have "@(have);NGX_HAVE_MAP_ANON"
+	have "@(have);NGX_HAVE_MAP_DEVZERO"
+	have "@(have);NGX_HAVE_SYSVSHM"
+	have "@(have);NGX_HAVE_POSIX_SEM"
+	have "@(have);NGX_HAVE_MSGHDR_MSG_CONTROL"
+	have "@(have);NGX_HAVE_FIONBIO"
+	have "@(have);NGX_HAVE_GMTOFF"
+	have "@(have);NGX_HAVE_D_TYPE"
+	have "@(have);NGX_HAVE_SC_NPROCESSORS_ONLN"
+	have "@(have);NGX_HAVE_OPENAT"
+	have "@(have);NGX_HAVE_GETADDRINFO"
+	have "@(have);NGX_HTTP_CACHE"
+	have "@(have);NGX_HAVE_INET6"
+
+	//#define NGX_HAVE_O_PATH  1
+	//#define NGX_HAVE_ACCEPT4  1
+	
+    EVENT_MODULES "@(EVENT_MODULES);@(EPOLL_MODULE)"
+    EVENT_FOUND true
+}
+
+
+Property
+{
+	!!PlatformFamily OSX
+	
+	CORE_SRCS "@(CORE_SRCS);@(UNIX_SRCS);@(DARWIN_SRCS);@(KQUEUE_SRCS);@(DARWIN_SENDFILE_SRCS)"
+
+	have_headers "@(have_headers);NGX_DARWIN"
+	have_headers "@(have_headers);NGX_HAVE_UNISTD_H"
+	have_headers "@(have_headers);NGX_HAVE_INTTYPES_H"
+	have_headers "@(have_headers);NGX_HAVE_LIMITS_H"
+	have_headers "@(have_headers);NGX_HAVE_SYS_FILIO_H"
+	have_headers "@(have_headers);NGX_HAVE_SYS_PARAM_H"
+	have_headers "@(have_headers);NGX_HAVE_SYS_MOUNT_H"
+	have_headers "@(have_headers);NGX_HAVE_SYS_STATVFS_H"
+
+	have "@(have);NGX_HAVE_KQUEUE"
+	have "@(have);NGX_HAVE_CLEAR_EVENT"
+	have "@(have);NGX_HAVE_TIMER_EVENT"
+	have "@(have);NGX_HAVE_SENDFILE"
+	have "@(have);NGX_DARWIN_ATOMIC"
+
+	have "@(have);NGX_HAVE_F_NOCACHE"
+	have "@(have);NGX_HAVE_STATFS"
+	have "@(have);NGX_HAVE_STATVFS"
+	have "@(have);NGX_HAVE_SCHED_YIELD"
+	have "@(have);NGX_HAVE_REUSEPORT"
+	have "@(have);NGX_HAVE_UNIX_DOMAIN"
+	have "@(have);NGX_SIG_ATOMIC_T_SIZE=4"
+	have "@(have);NGX_MAX_OFF_T_VALUE=9223372036854775807LL"
+	have "@(have);NGX_OFF_T_LEN=(sizeof(\"-9223372036854775808\") - 1)"
+	have "@(have);NGX_TIME_T_SIZE=8"
+	have "@(have);NGX_TIME_T_LEN=(sizeof(\"-9223372036854775808\") - 1)"
+	have "@(have);NGX_MAX_TIME_T_VALUE=9223372036854775807LL"
+	have "@(have);NGX_HAVE_PREAD"
+	have "@(have);NGX_HAVE_PWRITE"
+	have "@(have);NGX_SYS_NERR=107"
+	have "@(have);NGX_HAVE_LOCALTIME_R"
+	have "@(have);NGX_HAVE_POSIX_MEMALIGN"
+	have "@(have);NGX_HAVE_MAP_ANON"
+	have "@(have);NGX_HAVE_SYSVSHM"
+	have "@(have);NGX_HAVE_MSGHDR_MSG_CONTROL"
+	have "@(have);NGX_HAVE_FIONBIO"
+	have "@(have);NGX_HAVE_GMTOFF"
+	have "@(have);NGX_HAVE_D_NAMLEN"
+	have "@(have);NGX_HAVE_D_TYPE"
+	have "@(have);NGX_HAVE_SC_NPROCESSORS_ONLN"
+	have "@(have);NGX_HAVE_GETADDRINFO"
+	have "@(have);NGX_HTTP_CACHE"
+	have "@(have);NGX_HAVE_INET6"
+	
+	EVENT_MODULES "@(EVENT_MODULES);@(KQUEUE_MODULE)"
+	EVENT_FOUND true
+}
+
+
+Property
+{
+	!!PlatformFamily Windows
+	
+	SELECT_SRCS "@(WIN32_SELECT_SRCS)"
+
+	CORE_SRCS "@(CORE_SRCS);@(WIN32_SRCS)"
+	//EVENT_MODULES "@(EVENT_MODULES)"
+
+	EVENT_FOUND true
+	EVENT_SELECT true
+
+/*	have "@(have);NGX_HAVE_SELECT"
+	{
+		!EVENT_SELECT true
+	}
+	CORE_SRCS "@(CORE_SRCS);@(SELECT_SRCS)"
+	{
+		!EVENT_SELECT true
+	}
+	EVENT_MODULES="@(EVENT_MODULES);@(SELECT_MODULE)"
+	{
+		!EVENT_SELECT true
+	}*/
+
+	have "@(have);NGX_HAVE_INET6"
+	have_headers "@(have_headers);NGX_WIN32"
+
+	// Needed to be able to compile!
+	CORE_SRCS "@(CORE_SRCS);@(IOCP_SRCS);@(WIN32_IOCP_SRCS)"
+	have "@(have);NGX_HAVE_AIO"
+	have "@(have);NGX_HAVE_IOCP"
+//	have "@(have);NGX_HAVE_REUSEPORT"
+
+}
+
+Property
+{
+	&
+	{
+		PlatformFamily Windows
+		EVENT_IOCP true
+	}
+
+	//CORE_SRCS "@(CORE_SRCS);@(IOCP_SRCS);@(WIN32_IOCP_SRCS)"
+	EVENT_MODULES "@(EVENT_MODULES);@(IOCP_MODULE)"
+	//have "@(have);NGX_HAVE_AIO"
+	//have "@(have);NGX_HAVE_IOCP"
+	
+}
+
+
+///
+/// Architecture specific
+/// =====================
+
+Property
+{
+	!!Architecture x86
+	!!Architecture x64
+	have "@(have);NGX_HAVE_NONALIGNED;NGX_MACH_CACHE_LINE=64;NGX_CPU_CACHE_LINE=64"
+}
+
+Property
+{
+	&
+	{
+		!Architecture x86
+		!Architecture x64
+	}
+	have "@(have);NGX_ALIGNMENT=16;NGX_MACH_CACHE_LINE=64;NGX_CPU_CACHE_LINE=64"
+}
+
+Property
+{
+	&
+	{
+		ArchitectureBitness 32
+		!PlatformFamily Windows
+	}
+	have "@(have);NGX_PTR_SIZE=4;NGX_MAX_SIZE_T_VALUE=2147483647L;NGX_SIZE_T_LEN=(sizeof(\"-2147483648\") - 1)"
+}
+Property
+{
+	&
+	{
+		ArchitectureBitness 64
+		!PlatformFamily Windows
+	}
+	have "@(have);NGX_PTR_SIZE=8;NGX_MAX_SIZE_T_VALUE=9223372036854775807LL;NGX_SIZE_T_LEN=(sizeof(\"-9223372036854775808\") - 1)"
+}
+
+Property
+{
+	!!ArchitectureEndian Little
+	have "@(have);NGX_HAVE_LITTLE_ENDIAN"
+}
+Property
+{
+	!!ArchitectureEndian Big
+	have "@(have);NGX_HAVE_BIG_ENDIAN"
+}
+
+///
+/// General
+/// =======
+
+Property
+{
+	have "@(have);NGX_KQUEUE_UDATA_T=(void *)" // Except net-bsd
+}
+
+Property
+{
+	have "@(have);NGX_CONFIGURE=\"Malterlib build system\"" 
+}
+
+Property
+{
+	// Stubs
+	have "@(have);NGX_SUPPRESS_WARN;NGX_SMP" 
+	have "@(have);NGX_HAVE_EXTERNAL_MALLOC"
+}
+
+///
+/// Libraries
+/// =========
+Property
+{
+	!!USE_PCRE true
+	
+	have "@(have);NGX_PCRE;PCRE_STATIC;NGX_HAVE_PCRE_JIT"
+}
+Property
+{
+	!!USE_OPENSSL true
+	have "@(have);NGX_OPENSSL;NGX_SSL"
+}
+
+Property
+{
+	!!USE_ZLIB true
+	have "@(have);NGX_ZLIB"
+}
