@@ -22,7 +22,15 @@
 		}
 		Type ConsoleExecutable
 		BaseName "nginx"
+		BaseName "@(NgnixTargetBaseName)"
+		{
+			!NgnixTargetBaseName ""
+		}
 		FileName "nginx"
+		Group "@(NgnixTargetGroup)"
+		{
+			!NgnixTargetGroup ""
+		}
 		CharacterSet "MultiByte"
 		{
 			!!PlatformFamily Windows
