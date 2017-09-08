@@ -126,6 +126,10 @@ Property
 	{
 		!!HTTP_AUTH_REQUEST ""
 	}
+	HTTP_MIRROR true
+	{
+		!!HTTP_MIRROR ""
+	}
 	HTTP_USERID true
 	{
 		!!HTTP_USERID ""
