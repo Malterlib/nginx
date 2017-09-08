@@ -191,7 +191,9 @@ Property
 									
 	HTTP_UPSTREAM_KEEPALIVE_SRCS "src/http/modules/ngx_http_upstream_keepalive_module.c"
 	HTTP_UPSTREAM_ZONE_SRCS	"src/http/modules/ngx_http_upstream_zone_module.c"
-
+	
+	HTTP_TRY_FILES_SRCS "src/http/modules/ngx_http_try_files_module.c"
+	HTTP_MIRROR_SRCS "src/http/modules/ngx_http_mirror_module.c"
 
 	MAIL_SRCS	"src/mail/ngx_mail.c;"\
 				"src/mail/ngx_mail_core_module.c;"\

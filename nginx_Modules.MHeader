@@ -26,6 +26,8 @@ Property
 	HTTP_NOT_MODIFIED_FILTER_MODULE "ngx_http_not_modified_filter_module"
 	HTTP_STATIC_MODULE "ngx_http_static_module"
 	HTTP_INDEX_MODULE "ngx_http_index_module"
+	HTTP_MIRROR_MODULE "ngx_http_mirror_module"
+	HTTP_TRY_FILES_MODULE "ngx_http_try_files_module"
 	HTTP_V2_MODULE "ngx_http_v2_module"
 	HTTP_V2_FILTER_MODULE "ngx_http_v2_filter_module"
 	HTTP_CHARSET_FILTER_MODULE "ngx_http_charset_filter_module"
