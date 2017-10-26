@@ -924,6 +924,30 @@ ngx_http_ssl_merge_srv_conf(ngx_conf_t *cf, void *parent, void *child)
         return NGX_CONF_ERROR;
     }
 
+    static const uint16_t s_DefaultAlgos[] =
+        {
+            SSL_SIGN_ECDSA_SECP521R1_SHA512
+            , SSL_SIGN_RSA_PSS_SHA512
+            , SSL_SIGN_RSA_PKCS1_SHA512
+            , SSL_SIGN_ECDSA_SECP384R1_SHA384
+            , SSL_SIGN_RSA_PSS_SHA384
+            , SSL_SIGN_RSA_PKCS1_SHA384
+            , SSL_SIGN_ECDSA_SECP256R1_SHA256
+            , SSL_SIGN_RSA_PSS_SHA256
+            , SSL_SIGN_RSA_PKCS1_SHA256
+        }
+    ;
+
+    size_t num_algos = sizeof(s_DefaultAlgos) / sizeof(s_DefaultAlgos[0]);
+
+    if (!SSL_CTX_set_signing_algorithm_prefs(conf->ssl.ctx, s_DefaultAlgos, num_algos)) {
+        return NULL;
+	}
+
+    if (!SSL_CTX_set_verify_algorithm_prefs(conf->ssl.ctx, s_DefaultAlgos, num_algos)) {
+        return NGX_CONF_ERROR;
+    }
+
     if (conf->stapling) {
 
         if (ngx_ssl_stapling(cf, &conf->ssl, &conf->stapling_file,
