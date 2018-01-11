@@ -1,4 +1,4 @@
-﻿
+
 %Target Exe_nginx
 {
 	Include "nginx_Options.MHeader"
@@ -44,25 +44,25 @@
 	{
 		!!CompileDialect C
 		PrefixHeader ""
-		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('../pcre'));@(Compile.SearchPath)"
+		SearchPath "@('../pcre'->MakeAbsolute());@(Compile.SearchPath)"
 		{
 			!!USE_PCRE true
 		}
-		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/core'));@(Compile.SearchPath)"
-		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/os/unix'));@(Compile.SearchPath)"
+		SearchPath "@('src/core'->MakeAbsolute());@(Compile.SearchPath)"
+		SearchPath "@('src/os/unix'->MakeAbsolute());@(Compile.SearchPath)"
 		{
 			!PlatformFamily Windows
 		}
-		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/os/win32'));@(Compile.SearchPath)"
+		SearchPath "@('src/os/win32'->MakeAbsolute());@(Compile.SearchPath)"
 		{
 			!!PlatformFamily Windows
 		}
-		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/event'));@(Compile.SearchPath)"
-		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/event/modules'));@(Compile.SearchPath)"
-		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/http'));@(Compile.SearchPath)"
-		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/http/v2'));@(Compile.SearchPath)"
-		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('src/http/modules'));@(Compile.SearchPath)"
-		SearchPath "@(Builtin.BasePath)/@(Builtin.Function->RelativeBase('../../SDK/zlib'));@(Compile.SearchPath)"
+		SearchPath "@('src/event'->MakeAbsolute());@(Compile.SearchPath)"
+		SearchPath "@('src/event/modules'->MakeAbsolute());@(Compile.SearchPath)"
+		SearchPath "@('src/http'->MakeAbsolute());@(Compile.SearchPath)"
+		SearchPath "@('src/http/v2'->MakeAbsolute());@(Compile.SearchPath)"
+		SearchPath "@('src/http/modules'->MakeAbsolute());@(Compile.SearchPath)"
+		SearchPath "@('../../SDK/zlib'->MakeAbsolute());@(Compile.SearchPath)"
 
 		CLanguage "C99"
 		{
