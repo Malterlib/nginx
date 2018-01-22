@@ -1,4 +1,4 @@
-﻿
+
 #include <Mib/Core/Core>
 
 DMibAppNoClass;
@@ -35,7 +35,7 @@ extern "C"
 	void 
 	ngx_free(void* mem)
 	{
-		fg_Free(mem);
+		fg_FreeNoSize(mem);
 	}
 
 	void *
