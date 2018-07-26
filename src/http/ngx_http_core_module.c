@@ -3973,6 +3973,19 @@ ngx_http_core_listen(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
 #endif
         }
 
+        if (ngx_strcmp(value[n].data, "ssl_require_matching_sni") == 0)
+        {
+#if (NGX_HTTP_SSL)
+            lsopt.ssl_require_matching_sni = 1;
+            continue;
+#else
+            ngx_conf_log_error(NGX_LOG_EMERG, cf, 0,
+                               "the \"ssl_require_matching_sni\" parameter requires "
+                               "ngx_http_ssl_module");
+            return NGX_CONF_ERROR;
+#endif
+        }
+
         if (ngx_strcmp(value[n].data, "http2") == 0) {
 #if (NGX_HTTP_V2)
             lsopt.http2 = 1;
