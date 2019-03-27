@@ -1088,14 +1088,16 @@ Property
 Property
 {
 	!!PlatformFamily Windows
-	
+
 	SELECT_SRCS "@(WIN32_SELECT_SRCS)"
+	POLL_SRCS "@(WIN32_POLL_SRCS)"
 
 	CORE_SRCS "@(CORE_SRCS);@(WIN32_SRCS)"
 	//EVENT_MODULES "@(EVENT_MODULES)"
 
 	EVENT_FOUND true
 	EVENT_SELECT true
+	EVENT_POLL true
 
 /*	have "@(have);NGX_HAVE_SELECT"
 	{
