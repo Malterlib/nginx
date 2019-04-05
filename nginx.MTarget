@@ -12,7 +12,7 @@
 	Property
 	{
 		MalterlibLinkWithOpenSSL true
-		ProductName "Malterlib nginx build"
+		ProductName "NGINX"
 	}
 	Target
 	{
