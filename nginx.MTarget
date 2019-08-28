@@ -64,6 +64,11 @@
 		SearchPath "@('src/http/modules'->MakeAbsolute());@(Compile.SearchPath)"
 		SearchPath "@('../../SDK/zlib'->MakeAbsolute());@(Compile.SearchPath)"
 
+		Warnings_DeprecatedDeclarations "false"
+		{
+			!!GeneratorFamily Xcode
+		}
+
 		CLanguage "C99"
 		{
 			&
