@@ -10,7 +10,7 @@ Property
 			NGX_DEBUG ""
 		}
 	}
-	
+
 	EVENT_FOUND false
 	{
 		!!EVENT_FOUND ""
@@ -38,7 +38,7 @@ Property
 	{
 		!!NGX_FILE_AIO ""
 	}
-	
+
 	NGX_TEST_BUILD_DEVPOLL false
 	{
 		!!NGX_TEST_BUILD_DEVPOLL ""
@@ -88,10 +88,6 @@ Property
 	HTTP_SSI true
 	{
 		!!HTTP_SSI ""
-	}
-	HTTP_POSTPONE false
-	{
-		!!HTTP_POSTPONE ""
 	}
 	HTTP_REALIP false
 	{
@@ -291,7 +287,7 @@ Property
 	{
 		!!MAIL_SMTP ""
 	}
-	
+
 	STREAM false
 	{
 		!!STREAM ""
@@ -352,18 +348,18 @@ Property
 	{
 		!!STREAM_SSL_PREREAD ""
 	}
-	
-	
+
+
 	USE_OPENSSL true
 	{
 		!!USE_OPENSSL ""
 	}
-	
+
 	NGX_COMPAT false
 	{
 		!!NGX_COMPAT ""
 	}
-	
+
 	USE_PCRE true
 	{
 		!!USE_PCRE ""
@@ -372,7 +368,7 @@ Property
 	{
 		!!PCRE_JIT ""
 	}
-	
+
 	USE_PERL false
 	{
 		!!USE_PERL ""
@@ -385,7 +381,7 @@ Property
 	{
 		!!USE_LIBGD ""
 	}
-	
+
 	NGX_LIBATOMIC false
 	{
 		!!NGX_LIBATOMIC ""
@@ -394,17 +390,17 @@ Property
 	{
 		!!NGX_GOOGLE_PERFTOOLS ""
 	}
-	
+
 	NGX_USER "nobody"
 	{
 		!!NGX_USER ""
 	}
-	
+
 	NGX_GROUP "nobody"
 	{
 		!!NGX_GROUP ""
 	}
-	
+
 	ADDON_STICKY false
 	{
 		!!ADDON_STICKY ""
