@@ -603,7 +603,7 @@ Property
 	&
 	{
 		USE_THREADS true
-		!PlatformFamily Windows
+		!PlatformFamily "Windows"
 	}
 
     have "@(have);NGX_THREADS"
@@ -899,15 +899,15 @@ Property
 
 Property
 {
-	!!PlatformFamily OSX
-	!!PlatformFamily Linux
+	!!PlatformFamily "OSX"
+	!!PlatformFamily "Linux"
 	have "@(have);NGX_HAVE_GCC_ATOMIC;NGX_HAVE_C99_VARIADIC_MACROS;NGX_HAVE_GCC_VARIADIC_MACROS;NGX_COMPILER=\"clang\""
 
 }
 
 Property
 {
-	!!PlatformFamily Linux
+	!!PlatformFamily "Linux"
 
 	CORE_SRCS "@(CORE_SRCS);@(UNIX_SRCS);@(LINUX_SRCS);@(EPOLL_SRCS);@(LINUX_SENDFILE_SRCS)"
 
@@ -1005,7 +1005,7 @@ Property
 
 Property
 {
-	!!PlatformFamily OSX
+	!!PlatformFamily "OSX"
 
 	CORE_SRCS "@(CORE_SRCS);@(UNIX_SRCS);@(DARWIN_SRCS);@(KQUEUE_SRCS);@(DARWIN_SENDFILE_SRCS)"
 
@@ -1060,7 +1060,7 @@ Property
 
 Property
 {
-	!!PlatformFamily Windows
+	!!PlatformFamily "Windows"
 
 	SELECT_SRCS "@(WIN32_SELECT_SRCS)"
 	POLL_SRCS "@(WIN32_POLL_SRCS)"
@@ -1100,7 +1100,7 @@ Property
 {
 	&
 	{
-		PlatformFamily Windows
+		PlatformFamily "Windows"
 		EVENT_IOCP true
 	}
 
@@ -1118,8 +1118,8 @@ Property
 
 Property
 {
-	!!Architecture x86
-	!!Architecture x64
+	!!Architecture "x86"
+	!!Architecture "x64"
 	have "@(have);NGX_HAVE_NONALIGNED;NGX_MACH_CACHE_LINE=64;NGX_CPU_CACHE_LINE=64"
 }
 
@@ -1127,8 +1127,8 @@ Property
 {
 	&
 	{
-		!Architecture x86
-		!Architecture x64
+		!Architecture "x86"
+		!Architecture "x64"
 	}
 	have "@(have);NGX_ALIGNMENT=16;NGX_MACH_CACHE_LINE=64;NGX_CPU_CACHE_LINE=64"
 }
@@ -1138,7 +1138,7 @@ Property
 	&
 	{
 		ArchitectureBitness 32
-		!PlatformFamily Windows
+		!PlatformFamily "Windows"
 	}
 	have "@(have);NGX_PTR_SIZE=4;NGX_MAX_SIZE_T_VALUE=2147483647L;NGX_SIZE_T_LEN=(sizeof(\"-2147483648\") - 1)"
 }
@@ -1147,19 +1147,19 @@ Property
 	&
 	{
 		ArchitectureBitness 64
-		!PlatformFamily Windows
+		!PlatformFamily "Windows"
 	}
 	have "@(have);NGX_PTR_SIZE=8;NGX_MAX_SIZE_T_VALUE=9223372036854775807LL;NGX_SIZE_T_LEN=(sizeof(\"-9223372036854775808\") - 1)"
 }
 
 Property
 {
-	!!ArchitectureEndian Little
+	!!ArchitectureEndian "Little"
 	have "@(have);NGX_HAVE_LITTLE_ENDIAN"
 }
 Property
 {
-	!!ArchitectureEndian Big
+	!!ArchitectureEndian "Big"
 	have "@(have);NGX_HAVE_BIG_ENDIAN"
 }
 
