@@ -1,5 +1,5 @@
 
-%Target Exe_nginx
+%Target "Exe_nginx"
 {
 	Include "nginx_Options.MHeader"
 	Include "nginx_Modules.MHeader"
@@ -18,9 +18,9 @@
 	{
 		GenerateScheme false
 		{
-			!!GeneratorFamily Xcode
+			!!GeneratorFamily "Xcode"
 		}
-		Type ConsoleExecutable
+		Type "ConsoleExecutable"
 		BaseName "nginx"
 		BaseName "@(NgnixTargetBaseName)"
 		{
@@ -33,7 +33,7 @@
 		}
 		CharacterSet "MultiByte"
 		{
-			!!PlatformFamily Windows
+			!!PlatformFamily "Windows"
 		}
 		LinkWithLibraries "-lcrypt @(Target.LinkWithLibraries)"
 		{
@@ -42,7 +42,7 @@
 	}
 	Compile
 	{
-		!!CompileDialect C
+		!!CompileDialect "C"
 		PrefixHeader ""
 		SearchPath "@('../pcre'->MakeAbsolute());@(Compile.SearchPath)"
 		{
@@ -51,11 +51,11 @@
 		SearchPath "@('src/core'->MakeAbsolute());@(Compile.SearchPath)"
 		SearchPath "@('src/os/unix'->MakeAbsolute());@(Compile.SearchPath)"
 		{
-			!PlatformFamily Windows
+			!PlatformFamily "Windows"
 		}
 		SearchPath "@('src/os/win32'->MakeAbsolute());@(Compile.SearchPath)"
 		{
-			!!PlatformFamily Windows
+			!!PlatformFamily "Windows"
 		}
 		SearchPath "@('src/event'->MakeAbsolute());@(Compile.SearchPath)"
 		SearchPath "@('src/event/modules'->MakeAbsolute());@(Compile.SearchPath)"
@@ -64,9 +64,9 @@
 		SearchPath "@('src/http/modules'->MakeAbsolute());@(Compile.SearchPath)"
 		SearchPath "@('../../SDK/zlib'->MakeAbsolute());@(Compile.SearchPath)"
 
-		Warnings_DeprecatedDeclarations "false"
+		Warnings_DeprecatedDeclarations false
 		{
-			!!GeneratorFamily Xcode
+			!!GeneratorFamily "Xcode"
 		}
 
 		CLanguage "C99"
@@ -86,10 +86,10 @@
 			}
 		}
 	}
-	%Group Source
+	%Group "Source"
 	{
 		%File "Malterlib_nginx.cpp"
-		%Group Modules
+		%Group "Modules"
 		{
 			%GenerateFile "ngx_modules.c"
 			{
@@ -136,7 +136,7 @@
 				}
 			}
 		}
-		%Group Config
+		%Group "Config"
 		{
 			%GenerateFile "ngx_auto_headers.h"
 			{
@@ -279,65 +279,65 @@
 			!NGX_MISC_SRCS ""
 			%File "@(NGX_MISC_SRCS)"
 		}
-		%Group auto
+		%Group "auto"
 		{
 			%File "auto/*"
-			%Group os
+			%Group "os"
 			{
 				%File "auto/os/*"
 			}
-			%Group cc
+			%Group "cc"
 			{
 				%File "auto/cc/*"
 			}
-			%Group lib
+			%Group "lib"
 			{
 				%File "auto/lib/*"
-				%Group geoip
+				%Group "geoip"
 				{
 					%File "auto/lib/geoip/*"
 				}
-				%Group google-perftools
+				%Group "google-perftools"
 				{
 					%File "auto/lib/google-perftools/*"
 				}
-				%Group libatomic
+				%Group "libatomic"
 				{
 					%File "auto/lib/libatomic/*"
 				}
-				%Group libgd
+				%Group "libgd"
 				{
 					%File "auto/lib/libgd/*"
 				}
-				%Group libxslt
+				%Group "libxslt"
 				{
 					%File "auto/lib/libxslt/*"
 				}
-				%Group openssl
+				%Group "openssl"
 				{
 					%File "auto/lib/openssl/*"
 				}
-				%Group pcre
+				%Group "pcre"
 				{
 					%File "auto/lib/pcre/*"
 				}
-				%Group perl
+				%Group "perl"
 				{
 					%File "auto/lib/perl/*"
 				}
-				%Group zlib
+				%Group "zlib"
 				{
 					%File "auto/lib/zlib/*"
 				}
 			}
-			%Group types
+			%Group "types"
 			{
 				%File "auto/types/*"
 			}
 		}
 	}
 	
-	%Dependency Lib_zlib
-	%Dependency Lib_pcre
-	%Dependency Lib_Malterlib
+	%Dependency "Lib_zlib"
+	%Dependency "Lib_pcre"
+	%Dependency "Lib_Malterlib"
 }

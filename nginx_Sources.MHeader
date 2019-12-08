@@ -58,7 +58,7 @@ Property
 	DEVPOLL_SRCS "src/event/modules/ngx_devpoll_module.c"
 	EVENTPORT_SRCS "src/event/modules/ngx_eventport_module.c"
 	EPOLL_SRCS "src/event/modules/ngx_epoll_module.c"
-	IOCP_SRCS src/event/modules/ngx_iocp_module.c
+	IOCP_SRCS "src/event/modules/ngx_iocp_module.c"
 	FILE_AIO_SRCS "src/os/unix/ngx_file_aio_read.c"
 	LINUX_AIO_SRCS "src/os/unix/ngx_linux_aio_read.c"
 	UNIX_SRCS	"src/os/unix/ngx_time.c;"\
