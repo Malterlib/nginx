@@ -233,6 +233,7 @@ Property
 	STREAM_MAP_SRCS "src/stream/ngx_stream_map_module.c"
 	STREAM_SPLIT_CLIENTS_SRCS "src/stream/ngx_stream_split_clients_module.c"
 	STREAM_RETURN "src/stream/ngx_stream_return_module.c"
+	STREAM_SET "src/stream/ngx_stream_set_module.c"
 	STREAM_UPSTREAM_HASH_SRCS "src/stream/ngx_stream_upstream_hash_module.c"
 	STREAM_UPSTREAM_LEAST_CONN_SRCS "src/stream/ngx_stream_upstream_least_conn_module.c"
 	STREAM_UPSTREAM_ZONE_SRCS "src/stream/ngx_stream_upstream_zone_module.c"

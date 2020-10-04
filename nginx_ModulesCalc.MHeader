@@ -812,6 +812,18 @@ Property
 	&
 	{
 		STREAM true
+		STREAM_SET true
+	}
+
+	modules "@(modules);@(STREAM_SET_MODULE)"
+	STREAM_SRCS "@(STREAM_SRCS);@(STREAM_SET_SRCS)"
+}
+
+Property
+{
+	&
+	{
+		STREAM true
 		STREAM_UPSTREAM_HASH true
 	}
 
