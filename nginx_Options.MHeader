@@ -328,6 +328,10 @@ Property
 	{
 		!!STREAM_RETURN ""
 	}
+	STREAM_SET true
+	{
+		!!STREAM_SET ""
+	}
 	STREAM_UPSTREAM_HASH true
 	{
 		!!STREAM_UPSTREAM_HASH ""
