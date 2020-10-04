@@ -77,7 +77,7 @@
 				Compile.Type "C"
 			}
 		}
-		PreprocessorDefines "_FILE_OFFSET_BITS=64;_GNU_SOURCE;_XOPEN_SOURCE=600;_LARGEFILE_SOURCE;@(Compile.PreprocessorDefines)"
+		PreprocessorDefines "_FILE_OFFSET_BITS=64;_GNU_SOURCE;_LARGEFILE_SOURCE;@(Compile.PreprocessorDefines)"
 		{
 			&
 			{
