@@ -1,17 +1,23 @@
 
+Property
+{
+	NgnixTargetGroup define string?
+	NgnixTargetBaseName define string?
+}
+
 %Target "Exe_nginx"
 {
 	Include "nginx_Options.MHeader"
 	Include "nginx_Modules.MHeader"
 	Include "nginx_Sources.MHeader"
 	Include "nginx_ModulesCalc.MHeader"
-	
+
 	///
 	/// Settings
 	/// ========
 	Property
 	{
-		MalterlibLinkWithOpenSSL true
+		MalterlibLinkWithBoringSSL true
 		ProductName "NGINX"
 	}
 	Target
@@ -22,20 +28,20 @@
 		}
 		Type "ConsoleExecutable"
 		BaseName "nginx"
-		BaseName "@(NgnixTargetBaseName)"
+		BaseName NgnixTargetBaseName
 		{
 			!NgnixTargetBaseName ""
 		}
 		FileName "nginx"
-		Group "@(NgnixTargetGroup)"
+		Group NgnixTargetGroup
 		{
-			!NgnixTargetGroup ""
+			!NgnixTargetGroup undefined
 		}
 		CharacterSet "MultiByte"
 		{
 			!!PlatformFamily "Windows"
 		}
-		LinkWithLibraries "-lcrypt @(Target.LinkWithLibraries)"
+		LinkWithLibraries += "-lcrypt"
 		{
 			!!PlatformFamily "Linux"
 		}
@@ -43,26 +49,26 @@
 	Compile
 	{
 		!!CompileDialect "C"
-		PrefixHeader ""
-		SearchPath "@('../pcre'->MakeAbsolute());@(Compile.SearchPath)"
+		PrefixHeader undefined
+		SearchPath += "../pcre"->MakeAbsolute()
 		{
 			!!USE_PCRE true
 		}
-		SearchPath "@('src/core'->MakeAbsolute());@(Compile.SearchPath)"
-		SearchPath "@('src/os/unix'->MakeAbsolute());@(Compile.SearchPath)"
+		SearchPath += "src/core"->MakeAbsolute()
+		SearchPath += "src/os/unix"->MakeAbsolute()
 		{
 			!PlatformFamily "Windows"
 		}
-		SearchPath "@('src/os/win32'->MakeAbsolute());@(Compile.SearchPath)"
+		SearchPath += "src/os/win32"->MakeAbsolute()
 		{
 			!!PlatformFamily "Windows"
 		}
-		SearchPath "@('src/event'->MakeAbsolute());@(Compile.SearchPath)"
-		SearchPath "@('src/event/modules'->MakeAbsolute());@(Compile.SearchPath)"
-		SearchPath "@('src/http'->MakeAbsolute());@(Compile.SearchPath)"
-		SearchPath "@('src/http/v2'->MakeAbsolute());@(Compile.SearchPath)"
-		SearchPath "@('src/http/modules'->MakeAbsolute());@(Compile.SearchPath)"
-		SearchPath "@('../../SDK/zlib'->MakeAbsolute());@(Compile.SearchPath)"
+		SearchPath += "src/event"->MakeAbsolute()
+		SearchPath += "src/event/modules"->MakeAbsolute()
+		SearchPath += "src/http"->MakeAbsolute()
+		SearchPath += "src/http/v2"->MakeAbsolute()
+		SearchPath += "src/http/modules"->MakeAbsolute()
+		SearchPath += "../../External/zlib"->MakeAbsolute()
 
 		Warnings_DeprecatedDeclarations false
 		{
@@ -77,7 +83,7 @@
 				Compile.Type "C"
 			}
 		}
-		PreprocessorDefines "_FILE_OFFSET_BITS=64;_GNU_SOURCE;_LARGEFILE_SOURCE;@(Compile.PreprocessorDefines)"
+		PreprocessorDefines += ["_FILE_OFFSET_BITS=64", "_GNU_SOURCE", "_LARGEFILE_SOURCE"]
 		{
 			&
 			{
@@ -95,113 +101,111 @@
 			{
 				Property
 				{
-					ExternModuleDefinesTemplate "extern ngx_module_t @(Explodee);\n"
+					ExternModuleDefinesTemplate function(string _Module) string = ""
+					ExternModuleDefinesTemplate =+ `extern ngx_module_t @(_Module);\n`
 					{
-						!Explodee ""
+						!_Module ""
 					}
-					ExternModuleDefines "@(Builtin.Function->ExplodeList('@(modules)', ';', 'ExternModuleDefinesTemplate'))"
 
-					ModuleArrayContentsTemplate "\t&@(Explodee),\n"
+					ModuleArrayContentsTemplate function(string _Module) string = ""
+					ModuleArrayContentsTemplate =+ `\t&@(_Module),\n`
 					{
-						!Explodee ""
+						!_Module ""
 					}
-					ModuleArrayContents "@(Builtin.Function->ExplodeList('@(modules)', ';', 'ModuleArrayContentsTemplate'))"
 
-					ModuleNamesArrayContentsTemplate "\t\"@(Explodee)\",\n"
+					ModuleNamesArrayContentsTemplate function(string _Module) string = ""
+					ModuleNamesArrayContentsTemplate =+ `\t@(_Module->Escape()),\n`
 					{
-						!Explodee ""
+						!_Module ""
 					}
-					ModuleNamesArrayContents "@(Builtin.Function->ExplodeList('@(modules)', ';', 'ModuleNamesArrayContentsTemplate'))"
+				}
 
-					Name "@(GeneratedDirectory)ngx_modules.c"
-					Contents	"#include <ngx_config.h>\n"\
-								"#include <ngx_core.h>\n"\
-								"\n"\
-								"@(ExternModuleDefines)\n"\
-								"\n"\
-								"ngx_module_t *ngx_modules[] = {\n"\
-								"@(ModuleArrayContents)"\
-								"\tNULL\n"\
-								"};\n"\
-								"\n"\
-								"char *ngx_module_names[] = {\n"\
-								"@(ModuleNamesArrayContents)"\
-								"\tNULL\n"\
-								"};\n"\
-								"\n"
-					
-					
-					UnixLineEnds "@(ScriptUnixLineEnds)"
+				GenerateFile
+				{
+					Name `@(GeneratedDirectory)ngx_modules.c`
+					Contents	`#include <ngx_config.h>\n`\
+								`#include <ngx_core.h>\n`\
+								`\n`\
+								`@(modules->ForEach("ExternModuleDefinesTemplate"))\n`\
+								`\n`\
+								`ngx_module_t *ngx_modules[] = {\n`\
+								`@(modules->ForEach("ModuleArrayContentsTemplate"))`\
+								`\tNULL\n`\
+								`};\n`\
+								`\n`\
+								`char *ngx_module_names[] = {\n`\
+								`@(modules->ForEach("ModuleNamesArrayContentsTemplate"))`\
+								`\tNULL\n`\
+								`};\n`\
+								`\n`
+
+
+					UnixLineEnds ScriptUnixLineEnds
 					UnicodeBOM true
 				}
 			}
 		}
 		%Group "Config"
 		{
+			Property
+			{
+				HaveFeatureDefinesLineTemplate function(string _Name, string? _Value) string
+				HaveFeatureDefinesLineTemplate `#define @(_Name) 1`
+				{
+					|
+					{
+						_Value ""
+						_Value undefined
+					}
+				}
+				HaveFeatureDefinesLineTemplate `#define @(_Name) @(_Value)`
+				{
+					&
+					{
+						!_Value ""
+						!_Value undefined
+					}
+				}
+				HaveFeatureDefinesTemplate function(string _Feature) string
+				HaveFeatureDefinesTemplate =+ `@(HaveFeatureDefinesLineTemplate(_Feature->Split("=")...))\n`
+				{
+					!_Feature ""
+				}
+			}
 			%GenerateFile "ngx_auto_headers.h"
 			{
-				Property
+				GenerateFile
 				{
-					HaveFeatureDefinesLineTemplate	"#define @(Expand0) 1"
-					{
-						!!Expand1 ""
-					}
-					HaveFeatureDefinesLineTemplate	"#define @(Expand0) @(Expand1)"
-					{
-						!Expand1 ""
-					}
-					
-					HaveFeatureDefinesTemplate "@(Builtin.Function->ExpandList('@(Explodee)', '=', 'HaveFeatureDefinesLineTemplate'))\n"
-					{
-						!Explodee ""
-					}
-					HaveFeatureDefines "@(Builtin.Function->ExplodeList('@(have_headers)', ';', 'HaveFeatureDefinesTemplate'))"
-					
-					Name "@(GeneratedDirectory)ngx_auto_headers.h"
-					Contents	"@(HaveFeatureDefines)\n"
-					
-					UnixLineEnds "@(ScriptUnixLineEnds)"
+					Name `@(GeneratedDirectory)ngx_auto_headers.h`
+					Contents	`@(have_headers->ForEach("HaveFeatureDefinesTemplate"))\n`
+
+					UnixLineEnds ScriptUnixLineEnds
 					UnicodeBOM true
 				}
 			}
 			%GenerateFile "ngx_auto_config.h"
 			{
-				Property
+				GenerateFile
 				{
-					HaveFeatureDefinesLineTemplate	"#define @(Expand0) 1"
-					{
-						!!Expand1 ""
-					}
-					HaveFeatureDefinesLineTemplate	"#define @(Expand0) @(Expand1)"
-					{
-						!Expand1 ""
-					}
-					
-					HaveFeatureDefinesTemplate "@(Builtin.Function->ExpandList('@(Explodee)', '=', 'HaveFeatureDefinesLineTemplate'))\n"
-					{
-						!Explodee ""
-					}
-					HaveFeatureDefines "@(Builtin.Function->ExplodeList('@(have)', ';', 'HaveFeatureDefinesTemplate'))"
-					
-					Name "@(GeneratedDirectory)ngx_auto_config.h"
-					Contents	"@(HaveFeatureDefines)\n\n\n\n"\
-								"#define NGX_PREFIX  \"./\"\n"\
-								"#define NGX_CONF_PREFIX  \"conf/\"\n"\
-								"#define NGX_SBIN_PATH  \"\"\n"\
-								"#define NGX_CONF_PATH  \"conf/nginx.conf\"\n"\
-								"#define NGX_PID_PATH  \"logs/nginx.pid_\"\n"\
-								"#define NGX_LOCK_PATH  \"logs/nginx.lock\"\n"\
-								"#define NGX_ERROR_LOG_PATH  \"logs/error.log_\"\n"\
-								"#define NGX_HTTP_LOG_PATH  \"logs/access.log\"\n"\
-								"#define NGX_HTTP_CLIENT_TEMP_PATH  \"client_body_temp\"\n"\
-								"#define NGX_HTTP_PROXY_TEMP_PATH  \"proxy_temp\"\n"\
-								"#define NGX_HTTP_FASTCGI_TEMP_PATH  \"fastcgi_temp\"\n"\
-								"#define NGX_HTTP_UWSGI_TEMP_PATH  \"uwsgi_temp\"\n"\
-								"#define NGX_HTTP_SCGI_TEMP_PATH  \"scgi_temp\"\n"\
-								"#define NGX_USER  \"@(NGX_USER)\"\n"\
-								"#define NGX_GROUP  \"@(NGX_GROUP)\"\n"
-					
-					UnixLineEnds "@(ScriptUnixLineEnds)"
+					Name `@(GeneratedDirectory)ngx_auto_config.h`
+					Contents	`@(have->ForEach("HaveFeatureDefinesTemplate"))\n\n\n\n`\
+								`#define NGX_PREFIX  "./"\n`\
+								`#define NGX_CONF_PREFIX  "conf/"\n`\
+								`#define NGX_SBIN_PATH  ""\n`\
+								`#define NGX_CONF_PATH  "conf/nginx.conf"\n`\
+								`#define NGX_PID_PATH  "logs/nginx.pid_"\n`\
+								`#define NGX_LOCK_PATH  "logs/nginx.lock"\n`\
+								`#define NGX_ERROR_LOG_PATH  "logs/error.log_"\n`\
+								`#define NGX_HTTP_LOG_PATH  "logs/access.log"\n`\
+								`#define NGX_HTTP_CLIENT_TEMP_PATH  "client_body_temp"\n`\
+								`#define NGX_HTTP_PROXY_TEMP_PATH  "proxy_temp"\n`\
+								`#define NGX_HTTP_FASTCGI_TEMP_PATH  "fastcgi_temp"\n`\
+								`#define NGX_HTTP_UWSGI_TEMP_PATH  "uwsgi_temp"\n`\
+								`#define NGX_HTTP_SCGI_TEMP_PATH  "scgi_temp"\n`\
+								`#define NGX_USER  @(NGX_USER->Escape())\n`\
+								`#define NGX_GROUP  @(NGX_GROUP->Escape())\n`
+
+					UnixLineEnds ScriptUnixLineEnds
 					UnicodeBOM true
 				}
 			}
@@ -233,7 +237,7 @@
 				Compile.Disabled true
 			}
 			%File "src/os/win32/*.h"
-			%File "@(CORE_SRCS);@(EVENT_SRCS)"
+			%File [CORE_SRCS..., EVENT_SRCS...]
 			{
 				Compile.Disabled false
 			}
@@ -256,7 +260,7 @@
 				Compile.Disabled true
 			}
 			%File "src/http/modules/perl/*.h"
-			%File "@(HTTP_SRCS)"
+			%File HTTP_SRCS
 			{
 				Compile.Disabled false
 			}
@@ -269,15 +273,14 @@
 			{
 				Compile.Disabled true
 			}
-			%File "@(MAIL_SRCS)"
+			%File MAIL_SRCS
 			{
 				Compile.Disabled false
 			}
 		}
 		%Group "Misc"
 		{
-			!NGX_MISC_SRCS ""
-			%File "@(NGX_MISC_SRCS)"
+			%File NGX_MISC_SRCS
 		}
 		%Group "auto"
 		{
@@ -336,7 +339,7 @@
 			}
 		}
 	}
-	
+
 	%Dependency "Lib_zlib"
 	%Dependency "Lib_pcre"
 	%Dependency "Lib_Malterlib"
