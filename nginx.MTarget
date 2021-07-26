@@ -43,7 +43,11 @@ Property
 		}
 		LinkWithLibraries += "-lcrypt"
 		{
-			!!PlatformFamily "Linux"
+			&
+			{
+				HTTP_AUTH_BASIC true
+				PlatformFamily "Linux"
+			}
 		}
 	}
 	Compile

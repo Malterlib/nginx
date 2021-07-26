@@ -39,7 +39,7 @@ Property
 	HTTP_ADDITION define bool = false
 	HTTP_DAV define bool = false
 	HTTP_ACCESS define bool = true
-	HTTP_AUTH_BASIC define bool = true
+	HTTP_AUTH_BASIC define bool = false
 	HTTP_AUTH_REQUEST define bool = false
 	HTTP_MIRROR define bool = true
 	HTTP_USERID define bool = true
