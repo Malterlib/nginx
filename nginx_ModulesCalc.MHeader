@@ -4,6 +4,14 @@ Property
 	have define [string] = []
 	have_headers define [string] = []
 }
+
+Property
+{
+	!!NGX_DEBUG true
+
+	have =+ "NGX_DEBUG"
+}
+
 // Calculate modules
 // Order is important here
 Property

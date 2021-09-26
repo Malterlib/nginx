@@ -7,8 +7,8 @@ Property
 	{
 		&
 		{
+			NGX_DEBUG undefined
 			DebugCode true
-			NGX_DEBUG ""
 		}
 	}
 
