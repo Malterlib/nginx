@@ -1,8 +1,8 @@
 
 Property
 {
-	NgnixTargetGroup define string?
-	NgnixTargetBaseName define string?
+	NginxTargetGroup define string?
+	NginxTargetBaseName define string?
 }
 
 %Target "Exe_nginx"
@@ -28,14 +28,14 @@ Property
 		}
 		Type "ConsoleExecutable"
 		BaseName "nginx"
-		BaseName NgnixTargetBaseName
+		BaseName NginxTargetBaseName
 		{
-			!NgnixTargetBaseName ""
+			!NginxTargetBaseName ""
 		}
 		FileName "nginx"
-		Group NgnixTargetGroup
+		Group NginxTargetGroup
 		{
-			!NgnixTargetGroup undefined
+			!NginxTargetGroup undefined
 		}
 		CharacterSet "MultiByte"
 		{
