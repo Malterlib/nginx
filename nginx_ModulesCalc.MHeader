@@ -934,7 +934,12 @@ Property
 	!!PlatformFamily "OSX"
 	!!PlatformFamily "Linux"
 	have =+ ["NGX_HAVE_GCC_ATOMIC", "NGX_HAVE_C99_VARIADIC_MACROS", "NGX_HAVE_GCC_VARIADIC_MACROS", "NGX_COMPILER=\"clang\""]
+}
 
+Property
+{
+	!!PlatformFamily "Linux"
+	have =+ ["NGX_HAVE_SYS_EVENTFD_H"]
 }
 
 Property
