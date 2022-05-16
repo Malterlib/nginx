@@ -81,7 +81,7 @@ Property
 			!!GeneratorFamily "Xcode"
 		}
 
-		PreprocessorDefines += ["NGX_PCRE2=1"]
+		PreprocessorDefines += ["NGX_PCRE2=1", "PCRE2_STATIC=1"]
 
 		CLanguage "C99"
 		{
@@ -351,12 +351,5 @@ Property
 	%Dependency "Lib_zlib"
 	%Dependency "Lib_PCRE2_pcre2-8-static"
 	%Dependency "Lib_PCRE2_pcre2-posix-static"
-	{
-		|
-		{
-			PlatformFamily "OSX"
-			PlatformFamily "Linux"
-		}
-	}
 	%Dependency "Lib_Malterlib"
 }
