@@ -939,7 +939,7 @@ Property
 
 Property
 {
-	!!PlatformFamily "OSX"
+	!!PlatformFamily "macOS"
 	!!PlatformFamily "Linux"
 	have =+ ["NGX_HAVE_GCC_ATOMIC", "NGX_HAVE_C99_VARIADIC_MACROS", "NGX_HAVE_GCC_VARIADIC_MACROS", "NGX_COMPILER=\"clang\""]
 }
@@ -1050,7 +1050,7 @@ Property
 
 Property
 {
-	!!PlatformFamily "OSX"
+	!!PlatformFamily "macOS"
 
 	CORE_SRCS =+ [UNIX_SRCS..., DARWIN_SRCS..., KQUEUE_SRCS..., DARWIN_SENDFILE_SRCS...]
 
