@@ -1,9 +1,9 @@
 
 Property
 {
-	NginxTargetGroup define string?
-	NginxTargetBaseName define string?
-	NginxSuppressServerHeader define bool = true
+	NginxTargetGroup: string?
+	NginxTargetBaseName: string?
+	NginxSuppressServerHeader: bool = true
 }
 
 %Target "Exe_nginx"
@@ -140,15 +140,15 @@ Property
 					Contents	`#include <ngx_config.h>\n`\
 								`#include <ngx_core.h>\n`\
 								`\n`\
-								`@(modules->ForEach("ExternModuleDefinesTemplate"))\n`\
+								`@(modules->ForEach(&ExternModuleDefinesTemplate))\n`\
 								`\n`\
 								`ngx_module_t *ngx_modules[] = {\n`\
-								`@(modules->ForEach("ModuleArrayContentsTemplate"))`\
+								`@(modules->ForEach(&ModuleArrayContentsTemplate))`\
 								`\tNULL\n`\
 								`};\n`\
 								`\n`\
 								`char *ngx_module_names[] = {\n`\
-								`@(modules->ForEach("ModuleNamesArrayContentsTemplate"))`\
+								`@(modules->ForEach(&ModuleNamesArrayContentsTemplate))`\
 								`\tNULL\n`\
 								`};\n`\
 								`\n`
@@ -191,7 +191,7 @@ Property
 				GenerateFile
 				{
 					Name `@(GeneratedDirectory)ngx_auto_headers.h`
-					Contents	`@(have_headers->ForEach("HaveFeatureDefinesTemplate"))\n`
+					Contents	`@(have_headers->ForEach(&HaveFeatureDefinesTemplate))\n`
 
 					UnixLineEnds ScriptUnixLineEnds
 					UnicodeBOM true
@@ -202,7 +202,7 @@ Property
 				GenerateFile
 				{
 					Name `@(GeneratedDirectory)ngx_auto_config.h`
-					Contents	`@(have->ForEach("HaveFeatureDefinesTemplate"))\n\n\n\n`\
+					Contents	`@(have->ForEach(&HaveFeatureDefinesTemplate))\n\n\n\n`\
 								`#define NGX_PREFIX  "./"\n`\
 								`#define NGX_CONF_PREFIX  "conf/"\n`\
 								`#define NGX_SBIN_PATH  ""\n`\
