@@ -1,8 +1,8 @@
 
 Property
 {
-	have define [string] = []
-	have_headers define [string] = []
+	have: [string] = []
+	have_headers: [string] = []
 }
 
 Property
@@ -126,9 +126,9 @@ Property
 
 Property
 {
-	HTTP_FILTER_MODULES define [string]
+	HTTP_FILTER_MODULES: [string]
 	HTTP_FILTER_MODULES [HTTP_WRITE_FILTER_MODULE, HTTP_HEADER_FILTER_MODULE, HTTP_CHUNKED_FILTER_MODULE]
-	HTTP_AUX_FILTER_MODULES define [string] = []
+	HTTP_AUX_FILTER_MODULES: [string] = []
 }
 Property
 {
@@ -142,7 +142,7 @@ Property
 }
 Property
 {
-	USE_ZLIB define bool = false
+	USE_ZLIB: bool = false
 }
 Property
 {
@@ -621,7 +621,7 @@ Property
 
 Property
 {
-	modules define [string]
+	modules: [string]
 	modules [CORE_MODULES..., EVENT_MODULES...]
 }
 
