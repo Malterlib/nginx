@@ -3,6 +3,7 @@ Property
 {
 	NginxTargetGroup define string?
 	NginxTargetBaseName define string?
+	NginxSuppressServerHeader define bool = true
 }
 
 %Target "Exe_nginx"
@@ -98,6 +99,11 @@ Property
 				PlatformFamily "Linux"
 				Compile.Type "C"
 			}
+		}
+
+		PreprocessorDefines += "NGX_SUPPRESS_SERVER_HEADER"
+		{
+			!!NginxSuppressServerHeader true
 		}
 	}
 	%Group "Source"
