@@ -18,7 +18,6 @@ Property
 	/// ========
 	Property
 	{
-		MalterlibLinkWithBoringSSL true
 		ProductName "NGINX"
 	}
 	Target
@@ -358,4 +357,10 @@ Property
 	%Dependency "Lib_PCRE2_pcre2-8-static"
 	%Dependency "Lib_PCRE2_pcre2-posix-static"
 	%Dependency "Lib_Malterlib"
+	%Dependency "Lib_BoringSSL_decrepit"
+	{
+		!DocumentationEnabled true
+
+		Dependency.Indirect true
+	}
 }
