@@ -161,6 +161,7 @@ ngx_http_v3_header_filter(ngx_http_request_t *r)
 
     clcf = ngx_http_get_module_loc_conf(r, ngx_http_core_module);
 
+#ifndef NGX_SUPPRESS_SERVER_HEADER
     if (r->headers_out.server == NULL) {
         if (clcf->server_tokens == NGX_HTTP_SERVER_TOKENS_ON) {
             n = sizeof(NGINX_VER) - 1;
@@ -176,6 +177,7 @@ ngx_http_v3_header_filter(ngx_http_request_t *r)
                                             NGX_HTTP_V3_HEADER_SERVER,
                                             NULL, n);
     }
+#endif
 
     if (r->headers_out.date == NULL) {
         len += ngx_http_v3_encode_field_lri(NULL, 0, NGX_HTTP_V3_HEADER_DATE,
@@ -342,6 +344,7 @@ ngx_http_v3_header_filter(ngx_http_request_t *r)
         b->last = ngx_sprintf(b->last, "%03ui", r->headers_out.status);
     }
 
+#ifndef NGX_SUPPRESS_SERVER_HEADER
     if (r->headers_out.server == NULL) {
         if (clcf->server_tokens == NGX_HTTP_SERVER_TOKENS_ON) {
             p = (u_char *) NGINX_VER;
@@ -363,6 +366,7 @@ ngx_http_v3_header_filter(ngx_http_request_t *r)
                                                      NGX_HTTP_V3_HEADER_SERVER,
                                                      p, n);
     }
+#endif
 
     if (r->headers_out.date == NULL) {
         ngx_log_debug1(NGX_LOG_DEBUG_HTTP, c->log, 0,
