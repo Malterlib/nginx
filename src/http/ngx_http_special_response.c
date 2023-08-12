@@ -18,6 +18,15 @@ static ngx_int_t ngx_http_send_special_response(ngx_http_request_t *r,
 static ngx_int_t ngx_http_send_refresh(ngx_http_request_t *r);
 
 
+#ifdef NGX_SUPPRESS_SERVER_HEADER
+
+static u_char ngx_http_error_tail_clean[] =
+"</body>" CRLF
+"</html>" CRLF
+;
+
+#else
+
 static u_char ngx_http_error_full_tail[] =
 "<hr><center>" NGINX_VER "</center>" CRLF
 "</body>" CRLF
@@ -37,6 +46,8 @@ static u_char ngx_http_error_tail[] =
 "</body>" CRLF
 "</html>" CRLF
 ;
+
+#endif
 
 
 static u_char ngx_http_msie_padding[] =
@@ -680,6 +691,12 @@ ngx_http_send_special_response(ngx_http_request_t *r,
     ngx_uint_t    msie_padding;
     ngx_chain_t   out[3];
 
+#ifdef NGX_SUPPRESS_SERVER_HEADER
+	{
+        len = sizeof(ngx_http_error_tail_clean) - 1;
+        tail = ngx_http_error_tail_clean;
+    }
+#else
     if (clcf->server_tokens == NGX_HTTP_SERVER_TOKENS_ON) {
         len = sizeof(ngx_http_error_full_tail) - 1;
         tail = ngx_http_error_full_tail;
@@ -692,6 +709,7 @@ ngx_http_send_special_response(ngx_http_request_t *r,
         len = sizeof(ngx_http_error_tail) - 1;
         tail = ngx_http_error_tail;
     }
+#endif
 
     msie_padding = 0;
 
