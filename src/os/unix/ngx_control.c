@@ -737,7 +737,9 @@ ngx_control_send_response(ngx_control_request_t *r, ngx_uint_t code,
 
     const char  response_fmt[] =
         "HTTP/1.1 %03ui %s\r\n"
+#ifndef NGX_SUPPRESS_SERVER_HEADER
         "Server: " NGINX_VER "\r\n"
+#endif
         "Connection: close\r\n"
         "Content-Type: application/json\r\n"
         "Content-Length: %ui\r\n"

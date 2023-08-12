@@ -46,10 +46,11 @@ ngx_module_t  ngx_http_header_filter_module = {
     NGX_MODULE_V1_PADDING
 };
 
-
+#ifndef NGX_SUPPRESS_SERVER_HEADER
 static u_char ngx_http_server_string[] = "Server: nginx" CRLF;
 static u_char ngx_http_server_full_string[] = "Server: " NGINX_VER CRLF;
 static u_char ngx_http_server_build_string[] = "Server: " NGINX_VER_BUILD CRLF;
+#endif
 
 static ngx_str_t ngx_http_early_hints_status_line =
     ngx_string("HTTP/1.1 103 Early Hints" CRLF);
@@ -287,6 +288,7 @@ ngx_http_header_filter(ngx_http_request_t *r)
 
     clcf = ngx_http_get_module_loc_conf(r, ngx_http_core_module);
 
+#ifndef NGX_SUPPRESS_SERVER_HEADER
     if (r->headers_out.server == NULL) {
         if (clcf->server_tokens == NGX_HTTP_SERVER_TOKENS_ON) {
             len += sizeof(ngx_http_server_full_string) - 1;
@@ -298,6 +300,7 @@ ngx_http_header_filter(ngx_http_request_t *r)
             len += sizeof(ngx_http_server_string) - 1;
         }
     }
+#endif
 
     if (r->headers_out.date == NULL) {
         len += sizeof("Date: Mon, 28 Sep 1970 06:00:00 GMT" CRLF) - 1;
@@ -456,6 +459,7 @@ ngx_http_header_filter(ngx_http_request_t *r)
     }
     *b->last++ = CR; *b->last++ = LF;
 
+#ifndef NGX_SUPPRESS_SERVER_HEADER
     if (r->headers_out.server == NULL) {
         if (clcf->server_tokens == NGX_HTTP_SERVER_TOKENS_ON) {
             p = ngx_http_server_full_string;
@@ -472,6 +476,7 @@ ngx_http_header_filter(ngx_http_request_t *r)
 
         b->last = ngx_cpymem(b->last, p, len);
     }
+#endif
 
     if (r->headers_out.date == NULL) {
         b->last = ngx_cpymem(b->last, "Date: ", sizeof("Date: ") - 1);
