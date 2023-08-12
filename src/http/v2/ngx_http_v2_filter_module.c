@@ -115,18 +115,23 @@ ngx_http_v2_header_filter(ngx_http_request_t *r)
     ngx_http_core_srv_conf_t  *cscf;
     u_char                     addr[NGX_SOCKADDR_STRLEN];
 
+#ifndef NGX_SUPPRESS_SERVER_HEADER
     static const u_char nginx[5] = "\x84\xaa\x63\x55\xe7";
+#endif
+
 #if (NGX_HTTP_GZIP)
     static const u_char accept_encoding[12] =
         "\x8b\x84\x84\x2d\x69\x5b\x05\x44\x3c\x86\xaa\x6f";
 #endif
 
+#ifndef NGX_SUPPRESS_SERVER_HEADER
     static size_t nginx_ver_len = ngx_http_v2_literal_size(NGINX_VER);
     static u_char nginx_ver[ngx_http_v2_literal_size(NGINX_VER)];
 
     static size_t nginx_ver_build_len =
                                   ngx_http_v2_literal_size(NGINX_VER_BUILD);
     static u_char nginx_ver_build[ngx_http_v2_literal_size(NGINX_VER_BUILD)];
+#endif
 
     stream = r->stream;
 
@@ -217,6 +222,7 @@ ngx_http_v2_header_filter(ngx_http_request_t *r)
 
     clcf = ngx_http_get_module_loc_conf(r, ngx_http_core_module);
 
+#ifndef NGX_SUPPRESS_SERVER_HEADER
     if (r->headers_out.server == NULL) {
 
         if (clcf->server_tokens == NGX_HTTP_SERVER_TOKENS_ON) {
@@ -229,6 +235,7 @@ ngx_http_v2_header_filter(ngx_http_request_t *r)
             len += 1 + sizeof(nginx);
         }
     }
+#endif
 
     if (r->headers_out.date == NULL) {
         len += 1 + ngx_http_v2_literal_size("Wed, 31 Dec 1986 18:00:00 GMT");
@@ -421,6 +428,7 @@ ngx_http_v2_header_filter(ngx_http_request_t *r)
         pos = ngx_sprintf(pos, "%03ui", r->headers_out.status);
     }
 
+#ifndef NGX_SUPPRESS_SERVER_HEADER
     if (r->headers_out.server == NULL) {
 
         if (clcf->server_tokens == NGX_HTTP_SERVER_TOKENS_ON) {
@@ -463,6 +471,7 @@ ngx_http_v2_header_filter(ngx_http_request_t *r)
             pos = ngx_cpymem(pos, nginx, sizeof(nginx));
         }
     }
+#endif
 
     if (r->headers_out.date == NULL) {
         ngx_log_debug1(NGX_LOG_DEBUG_HTTP, fc->log, 0,
