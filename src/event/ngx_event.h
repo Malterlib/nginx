@@ -489,7 +489,7 @@ extern ngx_module_t           ngx_event_core_module;
 
 
 #define ngx_event_get_conf(conf_ctx, module)                                  \
-             (*(ngx_get_conf(conf_ctx, ngx_events_module))) [module.ctx_index]
+             (module.ctx_index == NGX_MODULE_UNSET_INDEX ? NULL : (*(ngx_get_conf(conf_ctx, ngx_events_module))) [module.ctx_index])
 
 
 
