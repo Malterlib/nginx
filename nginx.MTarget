@@ -22,6 +22,8 @@ Property
 	}
 	Target
 	{
+		ExtraGroups =+ "{Malterlib}/{Lib_Malterlib_Cryptography}/{DependOnBoringSSL}"
+
 		GenerateScheme false
 		{
 			!!GeneratorFamily "Xcode"
@@ -80,7 +82,7 @@ Property
 
 		Warnings_DeprecatedDeclarations false
 		{
-			!!GeneratorFamily "Xcode"
+			!!Compiler "Clang"
 		}
 
 		PreprocessorDefines += ["NGX_PCRE2=1", "PCRE2_STATIC=1"]
@@ -359,5 +361,4 @@ Property
 	%Dependency "Lib_PCRE2_pcre2-8-static"
 	%Dependency "Lib_PCRE2_pcre2-posix-static"
 	%Dependency "Lib_Malterlib"
-	%Dependency "Lib_BoringSSL_decrepit"
 }
