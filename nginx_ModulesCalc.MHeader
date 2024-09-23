@@ -874,6 +874,18 @@ Property
 	&
 	{
 		STREAM true
+		STREAM_PASS true
+	}
+
+	modules =+ STREAM_PASS_MODULE
+	STREAM_SRCS =+ STREAM_PASS_SRCS
+}
+
+Property
+{
+	&
+	{
+		STREAM true
 		STREAM_SET true
 	}
 

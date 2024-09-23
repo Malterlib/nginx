@@ -95,6 +95,7 @@ Property
 	STREAM_MAP: bool = true
 	STREAM_SPLIT_CLIENTS: bool = true
 	STREAM_RETURN: bool = true
+	STREAM_PASS: bool = true
 	STREAM_SET: bool = true
 	STREAM_UPSTREAM_HASH: bool = true
 	STREAM_UPSTREAM_LEAST_CONN: bool = true

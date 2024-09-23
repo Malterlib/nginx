@@ -488,6 +488,9 @@ Property
 	STREAM_RETURN_SRCS: [string] = []
 	STREAM_RETURN_SRCS =+ "src/stream/ngx_stream_return_module.c"
 
+	STREAM_PASS_SRCS: [string] = []
+	STREAM_PASS_SRCS =+ "src/stream/ngx_stream_pass_module.c"
+
 	STREAM_SET_SRCS: [string] = []
 	STREAM_SET_SRCS =+ "src/stream/ngx_stream_set_module.c"
 
